@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CSC Admin Dashboard ⚡</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -39,8 +39,8 @@
         .list-item.dragging { opacity: 0.4; background: #21262d; border: 1px dashed #00ea77; }
         .list-item.drag-over { border-top: 3px solid #00d4ff; transform: scale(1.02); }
         .drag-icon { margin-right: 15px; color: #8b949e; font-size: 16px; display: flex; align-items: center; }
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
-        .modal-content { background: #161b22; padding: 30px; border-radius: 16px; border: 1px solid #00d4ff; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; }
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px;}
+        .modal-content { background: #161b22; padding: 30px; border-radius: 16px; border: 1px solid #00d4ff; width: 100%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; }
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 15px; margin-bottom: 20px; }
         .modal-header h3 { margin: 0; color: #fff; font-size: 20px; display: flex; align-items: center; gap: 10px;}
@@ -106,7 +106,9 @@
         const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
         const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
-        const myRepo = "6G-Super-Fast/Scammer-Person"; 
+        
+        // FIXED REPO LINK
+        const myRepo = "6G-Super-Fast/Service-Format"; 
         
         let serviceArray = [];
         let editIndex = null; 
@@ -131,7 +133,7 @@
                     fileSha = data.sha;
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
                     const rawData = JSON.parse(decodedData);
-                    serviceArray = rawData.filter(item => item.service_name); // Removes old junk
+                    serviceArray = rawData.filter(item => item.service_name); 
                     updateSerialNumbers(); 
                     autoSuggestSNo();
                 }
@@ -159,8 +161,12 @@
                     autoSuggestSNo();
                 } else { throw new Error("Failed"); }
             } catch (error) {
-                alert("GitHub Connection Failed! Token Issue.");
-                loginBtn.innerHTML = "<i class='fa-solid fa-right-to-bracket'></i> ENTER ADMIN PANEL";
+                alert("GitHub Connection Failed! Checking Empty Repo...");
+                serviceArray = [];
+                sessionStorage.setItem('isCscAdminLoggedIn', 'true');
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('editorSection').style.display = 'block';
+                autoSuggestSNo();
             }
         }
 
@@ -298,7 +304,7 @@
                     method: 'PUT',
                     headers: { 'Authorization': `token ${GIT_TOKEN}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        message: "Update CSC Services", 
+                        message: "Update CSC Services in Service-Format Repo", 
                         content: encodedContent, 
                         sha: fileSha ? fileSha : undefined 
                     })

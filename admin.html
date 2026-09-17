@@ -433,36 +433,49 @@
 
         async function saveToCloud() {
             const uploadBtn = document.querySelector('.btn-blue');
-            uploadBtn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> SAVING...";
+            uploadBtn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> SAVING TO GITHUB...";
             uploadBtn.style.background = "#d29922";
 
             try {
                 updateSerialNumbers();
 
+                // STEP 1: Strictly fetch the very latest SHA directly before saving
+                let latestSha = undefined;
                 const getRes = await fetch(`https://api.github.com/repos/${myRepo}/contents/data.json?t=` + new Date().getTime(), {
                     headers: { 'Authorization': `token ${GIT_TOKEN}` }
                 });
+                
                 if (getRes.ok) {
                     const fileData = await getRes.json();
-                    fileSha = fileData.sha;
+                    latestSha = fileData.sha;
                 }
 
+                // STEP 2: Encode the data securely (handles emojis like ⚡ properly)
                 const updatedJson = JSON.stringify(serviceArray, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(updatedJson)));
 
+                // STEP 3: Create exact payload for GitHub
+                const payload = {
+                    message: "Update CSC Services list",
+                    content: encodedContent
+                };
+                if (latestSha) {
+                    payload.sha = latestSha;
+                }
+
+                // STEP 4: Push to GitHub API
                 const response = await fetch(`https://api.github.com/repos/${myRepo}/contents/data.json`, {
                     method: 'PUT',
-                    headers: { 'Authorization': `token ${GIT_TOKEN}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        message: "Update CSC Services format list via Admin", 
-                        content: encodedContent, 
-                        sha: fileSha ? fileSha : undefined 
-                    })
+                    headers: { 
+                        'Authorization': `token ${GIT_TOKEN}`, 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify(payload)
                 });
 
                 if(response.ok) {
                     const resData = await response.json();
-                    fileSha = resData.content.sha;
+                    fileSha = resData.content.sha; // Update global SHA
                     
                     uploadBtn.innerHTML = "<i class='fa-solid fa-circle-check'></i> SAVED TO SERVER ✅";
                     uploadBtn.style.background = "#00ea77";
@@ -473,19 +486,23 @@
                         uploadBtn.style.background = "#1f6feb";
                         uploadBtn.style.color = "#fff";
                     }, 3000);
-
                 } else { 
-                    throw new Error("Upload failed"); 
+                    // ERROR CAPTURE: If GitHub rejects, we catch the exact reason
+                    const errData = await response.json();
+                    throw new Error(`GitHub Error: ${response.status} - ${errData.message}`); 
                 }
             } catch (error) {
-                uploadBtn.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Internal error, try after some time";
+                // SHOW ERROR POPUP TO USER FOR EASY FIX
+                alert("⚠️ DATA SAVE FAILED: " + error.message);
+                
+                uploadBtn.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> SAVE FAILED";
                 uploadBtn.style.background = "#da3633";
                 uploadBtn.style.color = "#fff";
                 setTimeout(() => {
                     uploadBtn.innerHTML = "<i class='fa-solid fa-cloud-arrow-up'></i> SAVE TO SERVER";
                     uploadBtn.style.background = "#1f6feb";
                     uploadBtn.style.color = "#fff";
-                }, 3000);
+                }, 4000);
             }
         }
 

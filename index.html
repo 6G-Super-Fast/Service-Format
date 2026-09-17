@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Pure 985px Desktop Viewport for Mobile & PC -->
-    <meta name="viewport" content="width=985">
+    <!-- Viewport locked: No zoom on mobile, stable 985px layout -->
+    <meta name="viewport" content="width=985, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -15,6 +15,7 @@
             color: #c9d1d9; 
             min-height: 100vh; 
             padding: 40px 30px; 
+            overflow-x: hidden;
         }
         
         .container { 
@@ -25,18 +26,19 @@
         .header-title { 
             text-align: center; 
             color: #00d4ff; 
-            margin-bottom: 50px; 
-            font-size: 32px; 
+            margin-bottom: 45px; 
+            font-size: 34px; 
             font-weight: 700; 
             text-transform: uppercase; 
             letter-spacing: 1px;
         }
         .header-title i { color: #00ea77; margin-right: 12px; }
         
+        /* Grid 2 Only: Exactly 2 cards per row for a clean, big layout */
         .service-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns like desktop 985px layout */
-            gap: 25px; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px; 
             align-items: start; 
         }
         
@@ -47,24 +49,24 @@
             overflow: hidden; 
             display: flex; 
             flex-direction: column; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
             transition: transform 0.2s, border-color 0.3s;
-            min-height: 240px;
+            min-height: 260px;
         }
         .service-card:hover { transform: translateY(-5px); border-color: #00ea77; }
         
         .card-header { 
-            padding: 15px 20px; 
+            padding: 16px 22px; 
             background: #1c2128; 
             border-bottom: 1px solid #30363d; 
             display: flex; 
             justify-content: flex-start; 
             align-items: center; 
         }
-        .s-no { background: #00d4ff; color: #000; padding: 5px 14px; border-radius: 6px; font-size: 14px; font-weight: 700; }
+        .s-no { background: #00d4ff; color: #000; padding: 6px 16px; border-radius: 6px; font-size: 15px; font-weight: 700; }
         
         .card-body { 
-            padding: 35px 25px; 
+            padding: 40px 30px; 
             text-align: center; 
             display: flex;
             flex-direction: column;
@@ -74,10 +76,10 @@
         }
         
         .service-name { 
-            font-size: 20px; 
+            font-size: 22px; 
             color: #ffffff; 
             font-weight: 600; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             line-height: 1.4; 
             width: 100%;
             white-space: pre-line;
@@ -85,11 +87,11 @@
         }
         
         .view-btn { 
-            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; 
             background: #1f6feb; color: white; 
-            padding: 14px 20px; 
+            padding: 16px 22px; 
             border: none; border-radius: 8px; cursor: pointer; 
-            font-weight: 600; font-size: 15px; 
+            font-weight: 600; font-size: 16px; 
             transition: all 0.3s ease; width: 100%; 
             text-transform: uppercase; letter-spacing: 0.5px; 
         }
@@ -141,6 +143,16 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* Scaling trick for mobile to fit 985px viewport perfectly with zoom disabled */
+        @media screen and (max-width: 985px) {
+            body {
+                transform: scale(calc(100vw / 985));
+                transform-origin: top left;
+                width: 985px;
+                padding-bottom: 150px;
+            }
+        }
     </style>
 </head>
 <body>

@@ -208,7 +208,9 @@
                     const data = await response.json();
                     fileSha = data.sha;
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
-                    serviceArray = JSON.parse(decodedData);
+                    const rawData = JSON.parse(decodedData);
+                    // Filter out old WhatsApp fraud entries immediately so they don't corrupt S.No
+                    serviceArray = rawData.filter(item => item.service_name);
                     autoSuggestSNo();
                 }
             } catch (error) {
@@ -229,7 +231,9 @@
                     const data = await response.json();
                     fileSha = data.sha;
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
-                    serviceArray = JSON.parse(decodedData);
+                    const rawData = JSON.parse(decodedData);
+                    // Filter out old WhatsApp fraud entries immediately
+                    serviceArray = rawData.filter(item => item.service_name);
                     
                     sessionStorage.setItem('isCscAdminLoggedIn', 'true');
                     document.getElementById('loginSection').style.display = 'none';
@@ -270,7 +274,13 @@
 
         async function processServiceEntry() {
             const s_no = document.getElementById('sNoInput').value.trim();
-            const service_name = document.getElementById('serviceNameInput').value.trim();
+            let service_name = document.getElementById('serviceNameInput').value.trim();
+            
+            // AUTOMATICALLY ADD ⚡ TO THE END OF SERVICE NAME
+            if (service_name && !service_name.endsWith('⚡')) {
+                service_name += ' ⚡';
+            }
+            
             const format_details = document.getElementById('formatDetailsInput').value.trim();
             const actionBtn = document.getElementById('actionBtn');
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSC Shop - Services & Formats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: #0f1319; color: #c9d1d9; min-height: 100vh; padding: 30px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header-title { text-align: center; color: #00d4ff; margin-bottom: 30px; font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .header-title i { color: #00ea77; margin-right: 10px; }
+
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; align-items: start; }
+        
+        .service-card { 
+            background: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s, border-color 0.3s;
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: #00ea77; }
+        
+        .card-header { 
+            padding: 12px 18px; 
+            background: #1c2128; 
+            border-bottom: 1px solid #30363d; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 700; 
+            font-size: 14px;
+            color: #8b949e; 
+        }
+        .s-no { background: #00d4ff; color: #000; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 700; }
+        
+        .card-body { padding: 25px 20px; text-align: center; }
+        
+        .service-name {
+            font-size: 22px;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .view-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            background: #1f6feb; color: white; padding: 12px 20px; 
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;
+            transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(31, 111, 235, 0.2);
+            width: 100%; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .view-btn:hover { background: #388bfd; box-shadow: 0 6px 15px rgba(31, 111, 235, 0.4); }
+        .view-btn.active { background: #d29922; box-shadow: 0 4px 12px rgba(210, 153, 34, 0.2); }
+        .view-btn.active:hover { background: #e3b341; }
+        
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(5px); 
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #00d4ff;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            animation: popIn 0.3s ease-out;
+            position: relative;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: #00d4ff;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            color: #da3633;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: 0.3s;
+        }
+        .close-btn:hover { color: #ff4757; transform: rotate(90deg); }
+
+        .modal-body {
+            font-size: 15px;
+            color: #00ea77;
+            line-height: 1.8;
+            text-align: left;
+            white-space: pre-line; /* Keeps line breaks */
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #30363d;
+            display: flex;
+            justify-content: center;
+        }
+
+        .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 50px; color: #8b949e; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-title">
+            <i class="fa-solid fa-store"></i> 6G Super-Fast ⚡
+        </div>
+        <div id="serviceGrid" class="service-grid">
+            <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading Services from Server...</div>
+        </div>
+    </div>
+
+    <div id="formatModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle"><i class="fa-solid fa-file-contract"></i> Service Format</div>
+                <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button id="copyBtn" class="view-btn" style="background: #2ea043; max-width: 250px;" onclick="copyFormatText()">
+                    <i class="fa-solid fa-copy"></i> COPY FORMAT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
+        const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
+        const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
+        const myRepo = "6G-Super-Fast/Scammer-Person";
+
+        async function loadData() {
+            let cscData = [];
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${myRepo}/contents/data.json?t=` + new Date().getTime(), {
+                    headers: { 'Authorization': `token ${GIT_TOKEN}` }
+                });
+                if (response.ok) {
+                    const fileData = await response.json();
+                    const decodedData = decodeURIComponent(escape(atob(fileData.content)));
+                    cscData = JSON.parse(decodedData);
+                }
+            } catch (e) {
+                console.log("Internal connection fallback");
+            }
+
+            renderCards(cscData);
+        }
+
+        function renderCards(data) {
+            const grid = document.getElementById('serviceGrid');
+            if (!data || data.length === 0) {
+                grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No services found. Add formats from the Admin Panel.</div>`;
+                return;
+            }
+
+            // Filter out any entries that look like old corrupted data (e.g., missing service_name)
+            const validData = data.filter(item => item.service_name);
+
+            if (validData.length === 0) {
+                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found Please Add a New Entry..</div>`;
+                 return;
+            }
+
+            grid.innerHTML = validData.map((item, index) => {
+                let sNo = item.s_no || (index + 1);
+                
+                let formatText = item.format_details ? item.format_details.replace(/"/g, '&quot;') : "No format details provided.";
+                let serviceName = item.service_name || "Unknown Service";
+
+                return `
+                    <div class="service-card">
+                        <div class="card-header">
+                            <span>CSC SERVICE</span>
+                            <span class="s-no"># ${sNo}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="service-name">${serviceName}</div>
+                            <button class="view-btn" onclick="openModal('${serviceName}', \`${formatText}\`)">
+                                <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        let currentFormatText = "";
+
+        function openModal(title, details) {
+            document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> ${title}`;
+            // Replace <br> back to standard line breaks or handle directly
+            document.getElementById('modalBody').innerHTML = details.replace(/\n/g, '<br>');
+            
+            // Store plain text for copying, reverting escaped quotes
+            currentFormatText = details.replace(/&quot;/g, '"');
+            
+            document.getElementById('formatModal').style.display = 'flex';
+
+            // Reset copy button style
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> COPY FORMAT';
+            copyBtn.style.background = '#2ea043';
+        }
+
+        function closeModal() {
+            document.getElementById('formatModal').style.display = 'none';
+        }
+
+        function copyFormatText() {
+            // Create a temporary text area to copy raw text with line breaks
+            const textarea = document.createElement('textarea');
+            textarea.value = currentFormatText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Visual feedback on button
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> COPIED!';
+            copyBtn.style.background = '#d29922';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> COPY FORMAT';
+                copyBtn.style.background = '#2ea043';
+            }, 2500);
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('formatModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>

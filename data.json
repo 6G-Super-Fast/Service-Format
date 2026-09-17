@@ -143,5 +143,10 @@
     "s_no": "29",
     "service_name": "MANUAL \nDRIVING LICENCE  PDF ⚡",
     "format_details": "MANUAL DRIVING LICENCE  PRINT PDF ✅\n\nDL NO -\nSTATE - \nISSUE DATE - \nVALIDITY NT - \nVALIDITY TR - \n\n------------------------------------->\nNAME - \nDOB - \nS/O - \nBLOOD GROUP -  \nORGAN DONOR -\n--------------------------------------> \n\n#BACK SIDE\nMCWG - DATE\nLMV - DATE\nTRANS - DATE\nLDRXCV - DATE\n-------------------------------------->\nMOBILE NO - \nRTO NAME - \n--------------------------------------->\n\n\nEK PHOTO \nEK SINGNATURE \n----------------------------------------->"
+  },
+  {
+    "s_no": "30",
+    "service_name": "VEHICLE \nRC MANAUL PDF ⚡",
+    "format_details": "VEHICLE RC MANAUL PRINT PDF ✅\n\n\n1. BASIC INFO\n--------------------------------------->\n\nRegistration Number :\n\nRegistration Date :\n\nValid Upto :\n\nOwner Serial Number :\n\n2. FRONT SIDE DETAILS\n--------------------------------------->\n\nChassis Number :\n\nEngine Number :\n\nOwner Name :\n\nGuardian Name :\n\nFull Address :\n\nFuel Type : PETROL\n\nEmission Norms : BHARAT STAGE III\n\n3. BACK SIDE DETAILS\n--------------------------------------->\n\nVehicle Class :\n\nMaker (Company) :\n\nModel Name :\n\nColor :\n\nBody Type :\n\nMonth - Year of Mfg. :\n\nNumber of Cylinders :\n\nUnladen Weight (Kg) :\n\nCubic Capacity (CC) :\n\nSeating Capacity :\n\nHorse Power (BHP/Kw) :\n\nWheel Base :\n\nFinancier :\n\nRegistering Authority :"
   }
 ]

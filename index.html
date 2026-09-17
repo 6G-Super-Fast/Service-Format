@@ -2,18 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSC Shop - Services & Formats</title>
+    <!-- Desktop View Forced on Mobile -->
+    <meta name="viewport" content="width=985">
+    <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        body { background: #0f1319; color: #c9d1d9; min-height: 100vh; padding: 30px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header-title { text-align: center; color: #00d4ff; margin-bottom: 35px; font-size: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        body { 
+            background: #0f1319; 
+            color: #c9d1d9; 
+            min-height: 100vh; 
+            padding: 30px; 
+            overflow-x: hidden;
+        }
+        
+        .container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        .header-title { 
+            text-align: center; 
+            color: #00d4ff; 
+            margin-bottom: 35px; 
+            font-size: 30px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
         .header-title i { color: #00ea77; margin-right: 10px; }
         
-        /* Grid min-width badha di gayi hai taaki text ko failne ka pura space mile */
+        /* Grid fixed for desktop layout */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
@@ -64,7 +85,6 @@
             margin-bottom: 25px; 
             line-height: 1.4; 
             width: 100%;
-            /* Sirf enter dabane par break hoga, automatic aadhi line me nahi katega */
             white-space: pre-line;
             word-break: normal;
         }
@@ -80,10 +100,41 @@
         }
         .view-btn:hover { background: #388bfd; }
         
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #161b22; padding: 35px; border-radius: 14px; border: 1px solid #00d4ff; width: 100%; max-width: 550px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; position: relative; }
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(5px); 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .modal-content { 
+            background: #161b22; 
+            padding: 35px; 
+            border-radius: 14px; 
+            border: 1px solid #00d4ff; 
+            width: 100%; 
+            max-width: 550px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
+            animation: popIn 0.3s ease-out; 
+            position: relative; 
+        }
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 15px; margin-bottom: 25px; }
+        
+        .modal-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #30363d; 
+            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+        }
         .modal-title { color: #00d4ff; font-size: 22px; font-weight: 600; display: flex; align-items: center; gap: 10px; line-height: 1.4; white-space: pre-line;}
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; margin-left: 15px;}
         .close-btn:hover { color: #ff4757; transform: rotate(90deg); }

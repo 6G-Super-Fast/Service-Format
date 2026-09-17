@@ -163,7 +163,7 @@
             backdrop-filter: blur(5px); 
             align-items: center; 
             justify-content: center; 
-            padding: 10px; 
+            padding: 15px; 
             overflow: hidden; 
         }
         
@@ -192,8 +192,8 @@
             justify-content: space-between; 
             align-items: center; 
             border-bottom: 1px solid #30363d; 
-            padding-bottom: 10px; 
-            margin-bottom: 12px; 
+            padding-bottom: 12px; 
+            margin-bottom: 15px; 
             gap: 20px;
             flex-shrink: 0;
         }
@@ -222,8 +222,8 @@
         }
         
         .modal-footer { 
-            margin-top: 15px; 
-            padding-top: 12px; 
+            margin-top: 20px; 
+            padding-top: 15px; 
             border-top: 1px solid #30363d; 
             display: flex; 
             justify-content: center; 
@@ -233,7 +233,7 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - PERFECT SCREEN FIT & NO CUTTING */
+        /* MOBILE VIEW - ZOOM-OUT PHOTO STYLE POPUP  */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 15px 8px; min-height: 101vh; } 
@@ -258,48 +258,49 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING - FULLY VISIBLE INSIDE SCREEN BOUNDS */
+            /* MOBILE POPUP - ZOOMED-OUT COMPACT VIEW LIKE AN IMAGE */
             .modal { 
-                padding: 8px; 
+                padding: 5px; 
                 align-items: center; 
                 justify-content: center;
             }
             .modal-content { 
                 width: 95vw;[cite: 1]
                 min-width: unset !important;[cite: 1]
-                max-width: 420px;[cite: 1]
-                max-height: 82vh; /* Strictly bounded to screen height */[cite: 1]
-                padding: 12px;[cite: 1]
-                transform: none;[cite: 1]
-                animation: mobilePopIn 0.25s ease-out;[cite: 1]
+                max-width: 360px; /* Compact width like a zoomed-out photo */
+                max-height: 78vh; 
+                padding: 12px; 
+                transform: scale(0.88); /* Photo jaisa chhota zoom-out effect jo screen ke beech mein fit rahe */
+                transform-origin: center;
+                animation: mobilePopIn 0.25s ease-out; 
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
                 margin: auto;
             }
             .modal-header {
-                padding-bottom: 8px;
-                margin-bottom: 10px;
+                padding-bottom: 6px;
+                margin-bottom: 8px;
             }
-            .modal-title { font-size: 13.5px; }
+            .modal-title { font-size: 13px; }
             .modal-body { 
                 font-size: 11.5px;[cite: 1]
-                line-height: 1.45;
-                padding: 10px;[cite: 1]
-                max-height: 44vh; /* Controlled inner height so header and footer never overflow */[cite: 1]
+                line-height: 1.4;
+                padding: 8px;[cite: 1]
+                max-height: 42vh;[cite: 1]
                 overflow-x: hidden !important;[cite: 1]
                 overflow-y: auto !important;[cite: 1]
                 white-space: pre-wrap !important;[cite: 1]
                 word-break: normal !important;[cite: 1]
                 overflow-wrap: break-word !important;[cite: 1]
             }
-            .modal-footer { margin-top: 10px; padding-top: 8px; }
-            #copyBtn { font-size: 11.5px; padding: 10px; }
+            .modal-footer { margin-top: 8px; padding-top: 6px; }
+            #copyBtn { font-size: 11px; padding: 9px; }
         }
 
         @keyframes mobilePopIn { 
-            0% { transform: scale(0.8); opacity: 0; } 
-            100% { transform: scale(1); opacity: 1; } 
+            0% { transform: scale(0.7); opacity: 0; } 
+            100% { transform: scale(0.88); opacity: 1; } 
         }
     </style>
 </head>

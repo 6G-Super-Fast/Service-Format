@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Stable Mobile Viewport (No Zoom / Fixed Scaling) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Pure 985px Desktop Viewport for Mobile & PC -->
+    <meta name="viewport" content="width=985">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -14,11 +14,9 @@
             background: #0f1319; 
             color: #c9d1d9; 
             min-height: 100vh; 
-            padding: 40px 20px; 
-            overflow-x: hidden; /* Side scrolling completely blocked */
+            padding: 40px 30px; 
         }
         
-        /* Desktop layout locked width container */
         .container { 
             width: 985px; 
             margin: 0 auto; 
@@ -37,7 +35,7 @@
         
         .service-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* 3 cards in a row like desktop */
+            grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns like desktop 985px layout */
             gap: 25px; 
             align-items: start; 
         }
@@ -143,15 +141,6 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
-        /* Magic trick for Mobile: Automatically scales down the 985px desktop layout to fit any mobile screen perfectly without breaking */
-        @media screen and (max-width: 985px) {
-            body {
-                transform: scale(calc(100vw / 985));
-                transform-origin: top left;
-                width: 985px;
-            }
-        }
     </style>
 </head>
 <body>

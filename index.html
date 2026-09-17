@@ -201,16 +201,17 @@
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* BLACK FORMAT BOX - NO HORIZONTAL SCROLL, ONLY VERTICAL SCROLL & SAFE WRAPPING */
+        /* BLACK FORMAT BOX */
         .modal-body { 
             font-size: 15px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
             white-space: pre-wrap; 
-            word-break: break-all; /* Forces continuous long strings/numbers to wrap neatly inside without horizontal scroll */
-            overflow-x: hidden !important; /* Completely blocks left-right scroll */
-            overflow-y: auto !important; /* Only up-down scroll enabled */
+            word-break: normal; 
+            overflow-wrap: break-word; 
+            overflow-x: hidden !important; 
+            overflow-y: auto !important; 
             max-height: 52vh; 
             background: #010409;
             padding: 20px; 
@@ -232,7 +233,7 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - COMPACT POPUP & NO H-SCROLL */
+        /* MOBILE VIEW - WIDER POPUP & OPTIMIZED FONT*/
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 15px 8px; min-height: 101vh; } 
@@ -257,35 +258,36 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING */
+            /* MOBILE POPUP STYLING - SLIGHTLY WIDER TO FIT LINES PROPERLY */
             .modal { 
-                padding: 12px; 
+                padding: 10px; 
                 align-items: center; 
                 justify-content: center;
             }
             .modal-content { 
-                width: 92vw; 
-                min-width: unset !important; 
-                max-width: 380px; 
-                max-height: 80vh; 
-                padding: 14px; 
-                transform: none; 
-                animation: mobilePopIn 0.25s ease-out; 
+                width: 95vw;[cite: 1]
+                min-width: unset !important;[cite: 1]
+                max-width: 440px; /* Wider to accommodate full sentences in fewer lines */[cite: 1]
+                max-height: 82vh;[cite: 1]
+                padding: 12px;[cite: 1]
+                transform: none;[cite: 1]
+                animation: mobilePopIn 0.25s ease-out;[cite: 1]
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
                 margin: auto;
             }
-            .modal-title { font-size: 13.5px; }
+            .modal-title { font-size: 14px; }
             .modal-body { 
-                font-size: 12px; 
-                line-height: 1.45;
-                padding: 10px; 
-                max-height: 45vh; 
-                overflow-x: hidden !important; /* No horizontal scroll on mobile */
-                overflow-y: auto !important; /* Only vertical scroll */
-                white-space: pre-wrap !important; 
-                word-break: break-all !important; /* Ensures no left-right bleeding */
+                font-size: 11.5px; /* Slightly adjusted font size so long headings fit neatly in one line */[cite: 1]
+                line-height: 1.5;
+                padding: 10px;[cite: 1]
+                max-height: 48vh;[cite: 1]
+                overflow-x: hidden !important;[cite: 1]
+                overflow-y: auto !important;[cite: 1]
+                white-space: pre-wrap !important;[cite: 1]
+                word-break: normal !important;[cite: 1]
+                overflow-wrap: break-word !important;[cite: 1]
             }
             .modal-footer { margin-top: 10px; padding-top: 8px; }
             #copyBtn { font-size: 11.5px; padding: 10px; }

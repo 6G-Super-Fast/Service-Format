@@ -145,7 +145,7 @@
 <body>
     <div class="container">
         <div class="header-title">
-            <i class="fa-solid fa-store"></i> 6G Super-Fast ⚡
+            <i class="fa-solid fa-store"></i> CSC Service Display
         </div>
         <div id="serviceGrid" class="service-grid">
             <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading Services from Server...</div>
@@ -205,7 +205,7 @@
             const validData = data.filter(item => item.service_name);
 
             if (validData.length === 0) {
-                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found Please Add a New Entry..</div>`;
+                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No valid services found. Please add new formats from the Admin Panel.</div>`;
                  return;
             }
 

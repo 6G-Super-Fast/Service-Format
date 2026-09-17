@@ -130,7 +130,7 @@
         <h2><i class="fa-solid fa-building-shield"></i> CSC Admin Portal</h2>
         <p class="subtitle">Secure Control Room for Shop Services</p>
         
-        <button class="btn-pro btn-green" style="margin-top: 15px;" onclick="loadDataFromCloud()">
+        <button type="button" class="btn-pro btn-green" style="margin-top: 15px;" onclick="loadDataFromCloud()">
             <i class="fa-solid fa-right-to-bracket"></i> ENTER ADMIN PANEL
         </button>
     </div>
@@ -142,27 +142,26 @@
         
         <div style="display: flex; gap: 10px;">
             <input type="text" id="sNoInput" class="input-pro" placeholder="S. No." style="width: 30%; text-align:center; font-weight: bold;">
-            <!-- Service Name Textarea to support Enter key for multi-line titles -->
             <textarea id="serviceNameInput" class="input-pro" placeholder="Service Name (Press Enter for multi-line)" style="width: 70%; min-height: 54px; margin-bottom: 15px;"></textarea>
         </div>
         
         <textarea id="formatDetailsInput" class="input-pro" placeholder="Type format process & required documents here...&#10;1. Aadhaar Card&#10;2. Birth Certificate..." style="min-height: 120px;"></textarea>
         
-        <button id="actionBtn" class="btn-pro btn-green" onclick="processServiceEntry()">
+        <button type="button" id="actionBtn" class="btn-pro btn-green" onclick="processServiceEntry()">
             <i class="fa-solid fa-plus"></i> ADD SERVICE
         </button>
         
         <hr style="border: none; border-top: 1px solid #30363d; margin: 25px 0;">
 
-        <button class="btn-pro btn-yellow" onclick="openModal()">
+        <button type="button" class="btn-pro btn-yellow" onclick="openModal()">
             <i class="fa-solid fa-list-check"></i> VIEW SERVICES & EDIT
         </button>
         
-        <button class="btn-pro btn-blue" onclick="saveToCloud()">
+        <button type="button" class="btn-pro btn-blue" onclick="saveToCloud()">
             <i class="fa-solid fa-cloud-arrow-up"></i> SAVE TO SERVER
         </button>
         
-        <button class="btn-pro" style="background: #da3633; color: #fff; margin-top: 15px;" onclick="logoutAdmin()">
+        <button type="button" class="btn-pro" style="background: #da3633; color: #fff; margin-top: 15px;" onclick="logoutAdmin()">
             <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
         </button>
     </div>
@@ -172,7 +171,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3><i class="fa-solid fa-list"></i> ALL CSC SERVICES LIST</h3>
-                <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <p class="subtitle" style="text-align: left; margin-top:-10px;">💡 Drag & Drop to reorder entries. Numbers auto-update!</p>
             <div id="serviceListContainer"></div>
@@ -209,7 +208,7 @@
                     fileSha = data.sha;
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
                     const parsedData = JSON.parse(decodedData);
-                    serviceArray = parsedData.filter(item => item.service_name); // Clean old fraud/image records
+                    serviceArray = parsedData.filter(item => item.service_name); 
                     autoSuggestSNo();
                 }
             } catch (error) {
@@ -231,7 +230,7 @@
                     fileSha = data.sha;
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
                     const parsedData = JSON.parse(decodedData);
-                    serviceArray = parsedData.filter(item => item.service_name); // Clean old records
+                    serviceArray = parsedData.filter(item => item.service_name); 
                     
                     sessionStorage.setItem('isCscAdminLoggedIn', 'true');
                     document.getElementById('loginSection').style.display = 'none';
@@ -285,7 +284,6 @@
                 return; 
             }
 
-            // Auto add ⚡ if not already present
             if (!service_name.includes("⚡")) {
                 service_name += " ⚡";
             }
@@ -299,7 +297,6 @@
                 document.getElementById('actionBtn').className = "btn-pro btn-green";
             }
 
-            // Reset Fields
             document.getElementById('serviceNameInput').value = "";
             document.getElementById('formatDetailsInput').value = "";
             autoSuggestSNo();
@@ -315,11 +312,17 @@
             }, 2000);
         }
 
-        async function renderServiceList() {
+        async function openModal() { 
+            document.getElementById('listModal').style.display = 'flex'; 
             const container = document.getElementById('serviceListContainer');
             container.innerHTML = '<div style="text-align: center; color: #8b949e; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> Fetching live records...</div>';
             
             await loadDataFromCloudSilent();
+            renderServiceListLocal();
+        }
+
+        function renderServiceListLocal() {
+            const container = document.getElementById('serviceListContainer');
             updateSerialNumbers();
 
             container.innerHTML = "";
@@ -342,8 +345,8 @@
                             </div>
                         </div>
                         <div class="action-btns">
-                            <button class="btn-edit" onclick="editService(${index})"><i class="fa-solid fa-pen"></i></button>
-                            <button class="btn-delete" onclick="deleteService(${index})"><i class="fa-solid fa-trash-can"></i></button>
+                            <button type="button" class="btn-edit" onclick="editService(${index})"><i class="fa-solid fa-pen"></i></button>
+                            <button type="button" class="btn-delete" onclick="deleteService(${index})"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>`;
             });
@@ -363,23 +366,34 @@
                     dragStartIndex = +this.getAttribute('data-index'); 
                     this.classList.add('dragging'); 
                 });
-                draggable.addEventListener('dragover', function(e) { e.preventDefault(); });
-                draggable.addEventListener('dragenter', function(e) { e.preventDefault(); this.classList.add('drag-over'); });
-                draggable.addEventListener('dragleave', function() { this.classList.remove('drag-over'); });
-                draggable.addEventListener('drop', function() { 
+                draggable.addEventListener('dragover', function(e) { 
+                    e.preventDefault(); 
+                });
+                draggable.addEventListener('dragenter', function(e) { 
+                    e.preventDefault(); 
+                    this.classList.add('drag-over'); 
+                });
+                draggable.addEventListener('dragleave', function() { 
+                    this.classList.remove('drag-over'); 
+                });
+                draggable.addEventListener('drop', function(e) { 
+                    e.preventDefault();
                     this.classList.remove('drag-over'); 
                     const dragEndIndex = +this.getAttribute('data-index'); 
-                    swapItems(dragStartIndex, dragEndIndex); 
+                    if (dragStartIndex !== null && dragStartIndex !== dragEndIndex) {
+                        swapItems(dragStartIndex, dragEndIndex); 
+                    }
                 });
-                draggable.addEventListener('dragend', function() { this.classList.remove('dragging'); });
+                draggable.addEventListener('dragend', function() { 
+                    this.classList.remove('dragging'); 
+                });
             });
         }
 
         function swapItems(fromIndex, toIndex) {
             const itemToMove = serviceArray.splice(fromIndex, 1)[0];
             serviceArray.splice(toIndex, 0, itemToMove);
-            updateSerialNumbers();
-            renderServiceList();
+            renderServiceListLocal();
         }
 
         function editService(index) {
@@ -397,8 +411,7 @@
 
         async function deleteService(index) {
             serviceArray.splice(index, 1);
-            updateSerialNumbers();
-            renderServiceList();
+            renderServiceListLocal();
             autoSuggestSNo();
         }
 
@@ -460,7 +473,6 @@
             }
         }
 
-        function openModal() { document.getElementById('listModal').style.display = 'flex'; renderServiceList(); }
         function closeModal() { document.getElementById('listModal').style.display = 'none'; }
     </script>
 </body>

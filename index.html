@@ -23,7 +23,6 @@
             margin: 0 auto; 
         }
         
-        /* Default PC Grid - 4 Columns */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -88,7 +87,6 @@
         }
         .view-btn:hover { background: #388bfd; }
         
-        /* Modal Background */
         .modal { 
             display: none; 
             position: fixed; 
@@ -104,15 +102,13 @@
             padding: 15px; 
         }
         
-        /* AUTO WIDTH LOGIC HERE */
         .modal-content { 
             background: #161b22; 
             padding: 25px; 
             border-radius: 14px; 
             border: 1px solid #00d4ff; 
-            width: fit-content; /* Automatically increases width based on text length */
-            min-width: 300px;
-            max-width: 98%; /* Fits on screen perfectly without breaking layout */
+            width: 100%; 
+            max-width: 550px; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
@@ -132,15 +128,15 @@
         .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* EXACT FORMAT LOGIC */
+        /* EXACT FORMAT LOGIC: Line tootegi nahi, box me left-right scroll aa jayega */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre; /* Strictly preserves spaces, tabs, and line breaks exactly as uploaded */
+            white-space: pre; /* Text strictly waise hi rahega, line break nahi hoga */
             max-height: 65vh; 
-            overflow: auto; /* Allows both vertical and horizontal scroll without breaking lines */
+            overflow: auto; /* Agar line lambi hai, to box ke andar hi scrollbar aayega */
             background: #010409;
             padding: 15px;
             border-radius: 8px;
@@ -155,11 +151,10 @@
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-        /* EXACT 2-COLUMN GRID FOR MOBILE */
         @media screen and (max-width: 600px) {
             body { padding: 15px 10px; }
             .service-grid { 
-                grid-template-columns: repeat(2, 1fr) !important; /* Forces exactly 2 cards in one line on Mobile */
+                grid-template-columns: repeat(2, 1fr) !important; 
                 gap: 12px; 
             }
             .service-card { min-height: 180px; }
@@ -257,7 +252,6 @@
             let details = decodeURIComponent(encodedDetails);
             document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> ${title}`;
             
-            // Using innerText with CSS 'white-space: pre' ensures zero formatting changes
             document.getElementById('modalBody').innerText = details; 
             currentFormatText = details;
             

@@ -74,9 +74,7 @@
                     const decodedData = decodeURIComponent(escape(atob(fileData.content)));
                     const cscData = JSON.parse(decodedData);
                     renderCards(cscData);
-                } else {
-                    throw new Error();
-                }
+                } else { throw new Error(); }
             } catch (e) {
                 document.getElementById('serviceGrid').innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> Connection Error. Refresh Page.</div>`;
             }
@@ -84,7 +82,7 @@
 
         function renderCards(data) {
             const grid = document.getElementById('serviceGrid');
-            const validData = data.filter(item => item.service_name);
+            const validData = data.filter(item => item.service_name); // Ignores any broken legacy data
 
             if (!validData || validData.length === 0) {
                  grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found. Please Add an Entry from Admin Panel.</div>`;

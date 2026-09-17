@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- MASTER FIX: Mobile ko PC bana diya -->
-    <meta name="viewport" content="width=1040">
+    <!-- Responsive viewport wapas laya taaki 2 card wali trick kaam kare -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSC Services & Formats</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -24,6 +24,7 @@
             margin: 0 auto; 
         }
         
+        /* PC PAR 4 CARD */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -88,6 +89,7 @@
         }
         .view-btn:hover { background: #388bfd; }
         
+        /* POPUP BACKGROUND */
         .modal { 
             display: none; 
             position: fixed; 
@@ -103,14 +105,14 @@
             padding: 15px; 
         }
         
-        /* POPUP WIDTH EXACT 985px */
+        /* PC POPUP - Simple 600px width */
         .modal-content { 
             background: #161b22; 
             padding: 25px; 
             border-radius: 14px; 
             border: 1px solid #00d4ff; 
             width: 100%; 
-            max-width: 985px; 
+            max-width: 600px; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
@@ -130,14 +132,17 @@
         .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
+        /* POPUP TEXT: Left-Right Scroll blocked, format original */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre; /* Perfect Notepad Format */
+            white-space: pre-wrap; 
+            overflow-wrap: anywhere; 
             max-height: 70vh; 
-            overflow: auto; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
             background: #010409;
             padding: 15px;
             border-radius: 8px;
@@ -151,6 +156,40 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* ========================================= */
+        /* MOBILE PERFECT VIEW: 2 CARDS PER LINE     */
+        /* ========================================= */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px 10px; }
+            
+            /* MOBILE ME 2 CARD FIX KARDIE */
+            .service-grid { 
+                grid-template-columns: repeat(2, 1fr) !important; 
+                gap: 12px; 
+            }
+            .service-card { min-height: 180px; }
+            .card-body { padding: 12px 10px; }
+            .service-name { font-size: 12px; line-height: 1.3; }
+            .view-btn { padding: 8px 6px; font-size: 11px; }
+            .s-no { font-size: 11px; padding: 2px 8px; }
+            
+            /* MOBILE POPUP - Center floated box, bina zoom huye perfect */
+            .modal { padding: 15px; } 
+            .modal-content { 
+                padding: 20px; 
+                width: 100%; 
+                max-width: 380px; /* Center me chota box */
+                border-radius: 12px;
+                margin: 0 auto; 
+            }
+            .modal-title { font-size: 16px; }
+            .modal-body { 
+                font-size: 12px; 
+                padding: 12px; 
+                max-height: 60vh; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -179,7 +218,7 @@
         const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
         const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
-        const myRepo = "6G-Super-Fast/Service-Format";
+        const myRepo = "6G-Super-Fast/Service-Format"; // Update with your actual repo name
 
         async function loadData() {
             try {

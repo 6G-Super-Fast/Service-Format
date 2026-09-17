@@ -99,17 +99,17 @@
             backdrop-filter: blur(5px); 
             align-items: center; 
             justify-content: center; 
-            padding: 20px; /* Thoda space chhora hai design ke liye */
+            padding: 15px; 
         }
         
-        /* POPUP AB BAHUT BADA KAR DIYA HAI (850px width tak jayega PC par) */
+        /* PC POPUP - SIMPLE AND CENTERED */
         .modal-content { 
             background: #161b22; 
             padding: 25px; 
             border-radius: 14px; 
             border: 1px solid #00d4ff; 
             width: 100%; 
-            max-width: 985px; /* Pehle ye sirf 550px tha */
+            max-width: 600px; /* Wapas simple size par kar diya */
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
@@ -129,14 +129,17 @@
         .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
+        /* SCROLL FIX: No Left-Right Scroll, perfectly wraps long lines */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre; /* Text tootega nahi */
+            white-space: pre-wrap; 
+            overflow-wrap: anywhere; /* Lambi line ko box ke bahar jaane se rokega */
             max-height: 70vh; 
-            overflow: auto; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
             background: #010409;
             padding: 15px;
             border-radius: 8px;
@@ -151,7 +154,7 @@
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-        /* MOBILE SPECIFIC FIXES */
+        /* MOBILE VIEW FIXES - NOT FORCED TO 985px */
         @media screen and (max-width: 600px) {
             body { padding: 15px 10px; }
             .service-grid { 
@@ -164,12 +167,11 @@
             .view-btn { padding: 8px 6px; font-size: 11px; }
             .s-no { font-size: 11px; padding: 2px 8px; }
             
-            /* Mobile par modal puri screen lega aur font chota ho jayega taaki scroll na karna pade */
             .modal { padding: 10px; }
             .modal-content { padding: 15px; width: 100%; max-width: 100%; margin: 0;}
             .modal-title { font-size: 15px; }
             .modal-body { 
-                font-size: 11px; /* Font size adjust kiya taaki line width me set ho jaye */
+                font-size: 12px; 
                 padding: 10px; 
             }
         }
@@ -185,7 +187,7 @@
     <div id="formatModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title" id="modalTitle"><i class="fa-solid fa-file-contract"></i> Service Format</div>
+                <div class="modal-title" id="modalTitle"></div>
                 <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body" id="modalBody"></div>
@@ -232,7 +234,6 @@
                 let sNo = item.s_no || (index + 1);
                 let formatText = item.format_details ? item.format_details : "";
                 let rawTitle = item.service_name || "Service";
-                let modalTitleClean = rawTitle.replace(/\n/g, ' '); 
                 
                 let encodedFormat = encodeURIComponent(formatText);
 
@@ -243,7 +244,7 @@
                         </div>
                         <div class="card-body">
                             <div class="service-name">${rawTitle}</div>
-                            <button class="view-btn" onclick="openModal('${modalTitleClean.replace(/'/g, "\\'")}', '${encodedFormat}')">
+                            <button class="view-btn" onclick="openModal('${encodedFormat}')">
                                 <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
                             </button>
                         </div>
@@ -254,9 +255,11 @@
 
         let currentFormatText = "";
 
-        function openModal(title, encodedDetails) {
+        function openModal(encodedDetails) {
             let details = decodeURIComponent(encodedDetails);
-            document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> ${title}`;
+            
+            // Yahan Title Hamesha #FORMAT Hi Aayega
+            document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> #FORMAT`;
             
             document.getElementById('modalBody').innerText = details; 
             currentFormatText = details;

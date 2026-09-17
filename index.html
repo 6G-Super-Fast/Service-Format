@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CSC Services & Formats</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -164,10 +164,10 @@
             align-items: center; 
             justify-content: center; 
             padding: 15px; 
-            overflow: hidden; /* Prevent background scroll */
+            overflow: hidden; 
         }
         
-        /* PC POPUP BOX - AUTO HEIGHT & NO SCROLL */
+        /* PC POPUP BOX */
         .modal-content { 
             background: #161b22; 
             padding: 25px 30px; 
@@ -176,14 +176,14 @@
             width: fit-content; 
             min-width: 600px; 
             max-width: 95vw; 
-            max-height: 92vh; /* Fits screen securely */
+            max-height: 92vh; 
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 6px #00d4ff, 0 0 35px rgba(0, 212, 255, 0.45); 
             animation: popIn 0.25s ease-out; 
             position: relative; 
             margin: auto;
-            overflow: hidden; /* NO SCROLL */
+            overflow: hidden; 
         }
         @keyframes popIn { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
@@ -201,17 +201,17 @@
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* BLACK FORMAT BOX - AUTO HEIGHT, NO SCROLLBAR */
+        /* BLACK FORMAT BOX */
         .modal-body { 
             font-size: 15px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre-wrap; /* Auto wraps text safely */
+            white-space: pre-wrap; 
             word-break: break-word;
-            height: auto; /* Expands dynamically with format height */
-            max-height: none; /* Removes any height restriction */
-            overflow: visible; /* COMPLETELY REMOVES SCROLL */
+            height: auto; 
+            max-height: none; 
+            overflow: visible; 
             background: #010409;
             padding: 20px; 
             border-radius: 8px;
@@ -232,22 +232,22 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - AUTO EXPAND POPUP, NO SCROLL*/
+        /* MOBILE VIEW - IMMERSIVE FULL SCREEN       */
         /* ========================================= */
         @media screen and (max-width: 768px) {
-            body { padding: 20px 12px; }
-            .search-container { margin-bottom: 20px; }
+            body { padding: 15px 8px; min-height: 101vh; } /* Forces minimal extra height to trigger browser address bar auto-hide */
+            .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
             .service-grid { 
                 grid-template-columns: 1fr !important; 
-                gap: 16px; 
+                gap: 12px; 
             }
             .service-card { 
-                min-height: 150px; 
+                min-height: 140px; 
             }
             .card-body { 
-                padding: 16px; 
+                padding: 14px; 
             }
             .service-name { 
                 font-size: 13.5px; 
@@ -257,15 +257,15 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING (AUTO HEIGHT, NO SCROLL) */
-            .modal { padding: 8px; }
+            /* MOBILE POPUP STYLING */
+            .modal { padding: 6px; }
             .modal-content { 
-                width: 95vw; 
+                width: 96vw; 
                 min-width: unset !important; 
-                max-width: 440px; 
-                max-height: 96vh;
-                padding: 14px; 
-                transform: scale(0.9); 
+                max-width: 450px; 
+                max-height: 98vh;
+                padding: 12px; 
+                transform: scale(0.92); 
                 transform-origin: center;
                 animation: mobilePopIn 0.25s ease-out; 
                 overflow: hidden;
@@ -274,20 +274,20 @@
             .modal-body { 
                 font-size: 13px; 
                 line-height: 1.5;
-                padding: 12px; 
+                padding: 10px; 
                 height: auto;
                 max-height: none; 
-                overflow: visible !important; /* NO SCROLL ON MOBILE EITHER */
+                overflow: visible !important; 
                 white-space: pre-wrap !important; 
                 word-break: break-word !important; 
             }
-            .modal-footer { margin-top: 12px; padding-top: 10px; }
+            .modal-footer { margin-top: 10px; padding-top: 8px; }
             #copyBtn { font-size: 12px; padding: 10px; }
         }
 
         @keyframes mobilePopIn { 
             0% { transform: scale(0.75); opacity: 0; } 
-            100% { transform: scale(0.9); opacity: 1; } 
+            100% { transform: scale(0.92); opacity: 1; } 
         }
     </style>
 </head>

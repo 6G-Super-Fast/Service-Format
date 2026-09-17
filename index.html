@@ -14,7 +14,6 @@
             color: #c9d1d9; 
             min-height: 100vh; 
             padding: 40px 20px; 
-            overflow-x: hidden;
         }
         
         .container { 
@@ -23,6 +22,7 @@
             margin: 0 auto; 
         }
         
+        /* PC aur Mobile dono ke liye bilkul same 4-Column Grid */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -107,7 +107,7 @@
             border-radius: 14px; 
             border: 1px solid #00d4ff; 
             width: 100%; 
-            max-width: 500px; 
+            max-width: 550px; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
@@ -125,7 +125,22 @@
         .modal-title { color: #00d4ff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; line-height: 1.4; white-space: pre-line;}
         .close-btn { color: #da3633; font-size: 22px; cursor: pointer; background: none; border: none; transition: 0.3s; margin-left: 10px;}
         .close-btn:hover { color: #ff4757; transform: rotate(90deg); }
-        .modal-body { font-size: 14px; color: #00ea77; line-height: 1.7; text-align: left; white-space: pre-line; max-height: 60vh; overflow-y: auto; }
+        
+        .modal-body { 
+            font-size: 14px; 
+            color: #00ea77; 
+            line-height: 1.6; 
+            text-align: left; 
+            white-space: pre-wrap; 
+            word-break: break-word;
+            max-height: 60vh; 
+            overflow-y: auto; 
+            background: #010409;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+        
         .modal-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid #30363d; display: flex; justify-content: center; }
         
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
@@ -133,19 +148,6 @@
         ::-webkit-scrollbar { width: 6px; height: 6px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
-        @media screen and (max-width: 768px) {
-            body { padding: 20px 10px; }
-            .service-grid { 
-                grid-template-columns: repeat(2, 1fr) !important; 
-                gap: 12px; 
-            }
-            .service-card { min-height: 190px; }
-            .card-body { padding: 12px 10px; }
-            .service-name { font-size: 11px; }
-            .view-btn { padding: 8px 6px; font-size: 10px; }
-            .s-no { font-size: 11px; padding: 2px 8px; }
-        }
     </style>
 </head>
 <body>
@@ -203,10 +205,12 @@
 
             grid.innerHTML = validData.map((item, index) => {
                 let sNo = item.s_no || (index + 1);
-                let formatText = item.format_details ? item.format_details.replace(/"/g, '&quot;') : "No format details provided.";
+                let formatText = item.format_details ? item.format_details : "";
                 let rawTitle = item.service_name || "Service";
                 let modalTitleClean = rawTitle.replace(/\n/g, ' '); 
                 
+                let encodedFormat = encodeURIComponent(formatText);
+
                 return `
                     <div class="service-card">
                         <div class="card-header">
@@ -214,7 +218,7 @@
                         </div>
                         <div class="card-body">
                             <div class="service-name">${rawTitle}</div>
-                            <button class="view-btn" onclick="openModal('${modalTitleClean.replace(/'/g, "\\'")}', \`${formatText}\`)">
+                            <button class="view-btn" onclick="openModal('${modalTitleClean.replace(/'/g, "\\'")}', '${encodedFormat}')">
                                 <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
                             </button>
                         </div>
@@ -225,10 +229,11 @@
 
         let currentFormatText = "";
 
-        function openModal(title, details) {
+        function openModal(title, encodedDetails) {
+            let details = decodeURIComponent(encodedDetails);
             document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> ${title}`;
-            document.getElementById('modalBody').innerHTML = details.replace(/\n/g, '<br>');
-            currentFormatText = details.replace(/&quot;/g, '"');
+            document.getElementById('modalBody').innerText = details; 
+            currentFormatText = details;
             
             document.getElementById('formatModal').style.display = 'flex';
             const copyBtn = document.getElementById('copyBtn');

@@ -53,7 +53,7 @@
             flex-direction: column; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
             transition: transform 0.2s, border-color 0.3s;
-            height: 230px; 
+            min-height: 230px; /* Min-height taaki 2 line hone par card chota na pade */
         }
         .service-card:hover { transform: translateY(-4px); border-color: #00ea77; }
         
@@ -67,7 +67,6 @@
         }
         .s-no { background: #00d4ff; color: #000; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
         
-        /* EXACT CENTER ALIGNMENT: margin: auto 0 ensures equal top & bottom space */
         .card-body { 
             padding: 15px 16px; 
             text-align: center; 
@@ -78,16 +77,17 @@
             flex: 1;
         }
         
+        /* MULTILINE SUPPORT: Ab Enter ki hui lines yahan exactly dikhengi */
         .service-name { 
             font-size: 14px; 
             color: #ffffff; 
             font-weight: 600; 
             width: 100%;
             text-align: center;
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin: auto 0; /* Upar aur neeche bilkul barabar (equal) space fix karega */
+            white-space: pre-line; /* Enter space ko maintain rakhega */
+            word-break: break-word;
+            margin: auto 0; /* Upar aur neeche bilkul barabar space */
+            line-height: 1.4;
         }
         
         .view-btn { 
@@ -98,6 +98,7 @@
             font-weight: 600; font-size: 13px; 
             transition: all 0.3s ease; width: 100%; 
             text-transform: uppercase; letter-spacing: 0.5px; 
+            margin-top: 10px;
         }
         .view-btn:hover { background: #388bfd; }
         
@@ -148,7 +149,6 @@
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-        /* MOBILE SPECIFIC RULE: Exactly 2 Cards Per Row with proper gaps */
         @media screen and (max-width: 768px) {
             body { padding: 20px 10px; }
             .header-title { font-size: 20px; margin-bottom: 25px; }
@@ -156,7 +156,7 @@
                 grid-template-columns: repeat(2, 1fr) !important; 
                 gap: 12px; 
             }
-            .service-card { height: 190px; }
+            .service-card { min-height: 190px; }
             .card-body { padding: 12px 10px; }
             .service-name { font-size: 11px; }
             .view-btn { padding: 8px 6px; font-size: 10px; }
@@ -223,7 +223,8 @@
             grid.innerHTML = validData.map((item, index) => {
                 let sNo = item.s_no || (index + 1);
                 let formatText = item.format_details ? item.format_details.replace(/"/g, '&quot;') : "No format details provided.";
-                let cleanTitle = item.service_name.replace(/\n/g, ' '); 
+                let rawTitle = item.service_name || "Service";
+                let modalTitleClean = rawTitle.replace(/\n/g, ' '); 
                 
                 return `
                     <div class="service-card">
@@ -231,8 +232,8 @@
                             <span class="s-no"># ${sNo}</span>
                         </div>
                         <div class="card-body">
-                            <div class="service-name" title="${cleanTitle}">${cleanTitle}</div>
-                            <button class="view-btn" onclick="openModal('${cleanTitle.replace(/'/g, "\\'")}', \`${formatText}\`)">
+                            <div class="service-name">${rawTitle}</div>
+                            <button class="view-btn" onclick="openModal('${modalTitleClean.replace(/'/g, "\\'")}', \`${formatText}\`)">
                                 <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
                             </button>
                         </div>

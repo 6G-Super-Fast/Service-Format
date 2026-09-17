@@ -164,6 +164,7 @@
             align-items: center; 
             justify-content: center; 
             padding: 15px; 
+            overflow: hidden; 
         }
         
         /* PC POPUP BOX */
@@ -182,6 +183,7 @@
             animation: popIn 0.25s ease-out; 
             position: relative; 
             margin: auto;
+            overflow: hidden; 
         }
         @keyframes popIn { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
@@ -207,8 +209,9 @@
             text-align: left; 
             white-space: pre-wrap; 
             word-break: break-word;
-            max-height: 60vh; 
-            overflow-y: auto; 
+            height: auto; 
+            max-height: none; 
+            overflow: visible; 
             background: #010409;
             padding: 20px; 
             border-radius: 8px;
@@ -218,8 +221,8 @@
         }
         
         .modal-footer { 
-            margin-top: 15px; 
-            padding-top: 12px; 
+            margin-top: 20px; 
+            padding-top: 15px; 
             border-top: 1px solid #30363d; 
             display: flex; 
             justify-content: center; 
@@ -229,22 +232,22 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - PERFECT FIT & BUTTON VISIBLE*/
+        /* MOBILE VIEW - IMMERSIVE FULL SCREEN       */
         /* ========================================= */
         @media screen and (max-width: 768px) {
-            body { padding: 15px 10px; } 
-            .search-container { margin-bottom: 20px; }
+            body { padding: 15px 8px; min-height: 101vh; } /* Forces minimal extra height to trigger browser address bar auto-hide */
+            .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
             .service-grid { 
                 grid-template-columns: 1fr !important; 
-                gap: 16px; 
+                gap: 12px; 
             }
             .service-card { 
-                min-height: 150px; 
+                min-height: 140px; 
             }
             .card-body { 
-                padding: 16px; 
+                padding: 14px; 
             }
             .service-name { 
                 font-size: 13.5px; 
@@ -254,36 +257,37 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING - CONTROLLED HEIGHT, FULLY VISIBLE BUTTON */
-            .modal { 
-                padding: 10px; 
-                align-items: center;
-            }
+            /* MOBILE POPUP STYLING */
+            .modal { padding: 6px; }
             .modal-content { 
-                width: 94vw; 
+                width: 96vw; 
                 min-width: unset !important; 
-                max-width: 420px; 
-                max-height: 85vh; /* Fits comfortably above mobile browser bottom bar */
-                padding: 15px; 
-                animation: mobilePopIn 0.25s ease-out; 
-            }
-            .modal-title { font-size: 15px; }
-            .modal-body { 
-                font-size: 13.5px; 
-                line-height: 1.5;
+                max-width: 450px; 
+                max-height: 98vh;
                 padding: 12px; 
-                max-height: 48vh; /* Controlled inner scroll area so copy button never hides */
-                overflow-y: auto !important; 
+                transform: scale(0.92); 
+                transform-origin: center;
+                animation: mobilePopIn 0.25s ease-out; 
+                overflow: hidden;
+            }
+            .modal-title { font-size: 14px; }
+            .modal-body { 
+                font-size: 13px; 
+                line-height: 1.5;
+                padding: 10px; 
+                height: auto;
+                max-height: none; 
+                overflow: visible !important; 
                 white-space: pre-wrap !important; 
                 word-break: break-word !important; 
             }
-            .modal-footer { margin-top: 12px; padding-top: 10px; }
-            #copyBtn { font-size: 12px; padding: 11px; }
+            .modal-footer { margin-top: 10px; padding-top: 8px; }
+            #copyBtn { font-size: 12px; padding: 10px; }
         }
 
         @keyframes mobilePopIn { 
-            0% { transform: scale(0.85); opacity: 0; } 
-            100% { transform: scale(1); opacity: 1; } 
+            0% { transform: scale(0.75); opacity: 0; } 
+            100% { transform: scale(0.92); opacity: 1; } 
         }
     </style>
 </head>

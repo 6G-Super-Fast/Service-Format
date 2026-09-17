@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Responsive viewport wapas laya taaki 2 card wali trick kaam kare -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSC Services & Formats</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -89,7 +88,6 @@
         }
         .view-btn:hover { background: #388bfd; }
         
-        /* POPUP BACKGROUND */
         .modal { 
             display: none; 
             position: fixed; 
@@ -105,7 +103,6 @@
             padding: 15px; 
         }
         
-        /* PC POPUP - Simple 600px width */
         .modal-content { 
             background: #161b22; 
             padding: 25px; 
@@ -132,17 +129,16 @@
         .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* POPUP TEXT: Left-Right Scroll blocked, format original */
+        /* 100% EXACT FORMAT FIX: Kabhi next line mein nahi toootega */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre-wrap; 
-            overflow-wrap: anywhere; 
+            white-space: pre; /* Ye tag format ko tootne nahi dega */
             max-height: 70vh; 
             overflow-y: auto; 
-            overflow-x: hidden; 
+            overflow-x: auto; /* Agar line badi hui to box ke andar hi left-right scroll ho jayegi */
             background: #010409;
             padding: 15px;
             border-radius: 8px;
@@ -158,12 +154,11 @@
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* ========================================= */
-        /* MOBILE PERFECT VIEW: 2 CARDS PER LINE     */
+        /* MOBILE VIEW: 2 CARDS PER LINE             */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 15px 10px; }
             
-            /* MOBILE ME 2 CARD FIX KARDIE */
             .service-grid { 
                 grid-template-columns: repeat(2, 1fr) !important; 
                 gap: 12px; 
@@ -174,18 +169,17 @@
             .view-btn { padding: 8px 6px; font-size: 11px; }
             .s-no { font-size: 11px; padding: 2px 8px; }
             
-            /* MOBILE POPUP - Center floated box, bina zoom huye perfect */
             .modal { padding: 15px; } 
             .modal-content { 
-                padding: 20px; 
+                padding: 15px; 
                 width: 100%; 
-                max-width: 380px; /* Center me chota box */
+                max-width: 95vw; /* Mobile par pura width lega */
                 border-radius: 12px;
                 margin: 0 auto; 
             }
             .modal-title { font-size: 16px; }
             .modal-body { 
-                font-size: 12px; 
+                font-size: 11px; /* Thoda chota text taaki zyada content dikhe */
                 padding: 12px; 
                 max-height: 60vh; 
             }
@@ -218,7 +212,7 @@
         const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
         const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
-        const myRepo = "6G-Super-Fast/Service-Format"; // Update with your actual repo name
+        const myRepo = "6G-Super-Fast/Service-Format";
 
         async function loadData() {
             try {

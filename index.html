@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1040">
     <title>CSC Services & Formats</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -23,7 +23,6 @@
             margin: 0 auto; 
         }
         
-        /* PC PAR 4 CARD */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -105,14 +104,16 @@
         
         .modal-content { 
             background: #161b22; 
-            padding: 25px; 
-            border-radius: 14px; 
+            padding: 15px 20px; 
+            border-radius: 12px; 
             border: 1px solid #00d4ff; 
-            width: 100%; 
-            max-width: 600px; 
+            width: fit-content; 
+            min-width: 350px; 
+            max-width: 985px; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
+            margin: auto;
         }
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
@@ -121,69 +122,44 @@
             justify-content: space-between; 
             align-items: center; 
             border-bottom: 1px solid #30363d; 
-            padding-bottom: 10px; 
-            margin-bottom: 15px; 
+            padding-bottom: 8px; 
+            margin-bottom: 10px; 
             gap: 20px;
         }
-        .modal-title { color: #00d4ff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; line-height: 1.4;}
-        .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
+        .modal-title { color: #00d4ff; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; line-height: 1.4;}
+        .close-btn { color: #da3633; font-size: 22px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* 100% EXACT FORMAT FIX: Kabhi next line mein nahi toootega */
+        /* INNER BLACK BOX FIX: Box 100% space lega aur center rahega */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
-            line-height: 1.6; 
-            text-align: left; 
-            white-space: pre; /* Ye tag format ko tootne nahi dega */
-            max-height: 70vh; 
-            overflow-y: auto; 
-            overflow-x: auto; /* Agar line badi hui to box ke andar hi left-right scroll ho jayegi */
+            line-height: 1.5; 
+            text-align: left; /* Text hamesha left rahega */
+            white-space: pre; 
+            max-height: 75vh; 
+            overflow: auto; 
             background: #010409;
-            padding: 15px;
+            padding: 12px 15px; 
             border-radius: 8px;
             border: 1px solid #30363d;
+            margin: 0 auto; /* Ye dabbe ko center rakhega */
+            width: 100%; /* Ye dabbe ko dono taraf se barabar karega */
         }
         
-        .modal-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid #30363d; display: flex; justify-content: center; }
+        .modal-footer { 
+            margin-top: 12px; 
+            padding-top: 10px; 
+            border-top: 1px solid #30363d; 
+            display: flex; 
+            justify-content: center; 
+        }
         
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
-        /* ========================================= */
-        /* MOBILE VIEW: 2 CARDS PER LINE             */
-        /* ========================================= */
-        @media screen and (max-width: 768px) {
-            body { padding: 15px 10px; }
-            
-            .service-grid { 
-                grid-template-columns: repeat(2, 1fr) !important; 
-                gap: 12px; 
-            }
-            .service-card { min-height: 180px; }
-            .card-body { padding: 12px 10px; }
-            .service-name { font-size: 12px; line-height: 1.3; }
-            .view-btn { padding: 8px 6px; font-size: 11px; }
-            .s-no { font-size: 11px; padding: 2px 8px; }
-            
-            .modal { padding: 15px; } 
-            .modal-content { 
-                padding: 15px; 
-                width: 100%; 
-                max-width: 95vw; /* Mobile par pura width lega */
-                border-radius: 12px;
-                margin: 0 auto; 
-            }
-            .modal-title { font-size: 16px; }
-            .modal-body { 
-                font-size: 11px; /* Thoda chota text taaki zyada content dikhe */
-                padding: 12px; 
-                max-height: 60vh; 
-            }
-        }
     </style>
 </head>
 <body>
@@ -265,7 +241,7 @@
         let currentFormatText = "";
 
         function openModal(encodedDetails) {
-            let details = decodeURIComponent(encodedDetails);
+            let details = decodeURIComponent(encodedDetails).trim();
             
             document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> #FORMAT`;
             

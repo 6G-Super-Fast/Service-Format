@@ -9,28 +9,92 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         body { background: #0f1319; color: #c9d1d9; min-height: 100vh; padding: 30px; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        .header-title { text-align: center; color: #00d4ff; margin-bottom: 30px; font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header-title { text-align: center; color: #00d4ff; margin-bottom: 35px; font-size: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
         .header-title i { color: #00ea77; margin-right: 10px; }
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; align-items: start; }
-        .service-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.2s, border-color 0.3s; }
+        
+        /* Grid min-width badha di gayi hai taaki text ko failne ka pura space mile */
+        .service-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+            gap: 30px; 
+            align-items: start; 
+        }
+        
+        .service-card { 
+            background: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 14px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
+            transition: transform 0.2s, border-color 0.3s;
+            min-height: 240px;
+        }
         .service-card:hover { transform: translateY(-5px); border-color: #00ea77; }
-        .card-header { padding: 12px 18px; background: #1c2128; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14px; color: #8b949e; }
-        .s-no { background: #00d4ff; color: #000; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 700; }
-        .card-body { padding: 25px 20px; text-align: center; }
-        .service-name { font-size: 22px; color: #ffffff; font-weight: 600; margin-bottom: 20px; line-height: 1.3; }
-        .view-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #1f6feb; color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s ease; width: 100%; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .card-header { 
+            padding: 15px 20px; 
+            background: #1c2128; 
+            border-bottom: 1px solid #30363d; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 700; 
+            font-size: 14px; 
+            color: #8b949e; 
+        }
+        .s-no { background: #00d4ff; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; }
+        
+        .card-body { 
+            padding: 35px 25px; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .service-name { 
+            font-size: 20px; 
+            color: #ffffff; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+            line-height: 1.4; 
+            width: 100%;
+            /* Sirf enter dabane par break hoga, automatic aadhi line me nahi katega */
+            white-space: pre-line;
+            word-break: normal;
+        }
+        
+        .view-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            background: #1f6feb; color: white; 
+            padding: 14px 20px; 
+            border: none; border-radius: 8px; cursor: pointer; 
+            font-weight: 600; font-size: 15px; 
+            transition: all 0.3s ease; width: 100%; 
+            text-transform: uppercase; letter-spacing: 0.5px; 
+        }
         .view-btn:hover { background: #388bfd; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
-        .modal-content { background: #161b22; padding: 30px; border-radius: 12px; border: 1px solid #00d4ff; width: 90%; max-width: 500px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; position: relative; }
+        
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #161b22; padding: 35px; border-radius: 14px; border: 1px solid #00d4ff; width: 100%; max-width: 550px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; position: relative; }
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 15px; margin-bottom: 20px; }
-        .modal-title { color: #00d4ff; font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #30363d; padding-bottom: 15px; margin-bottom: 25px; }
+        .modal-title { color: #00d4ff; font-size: 22px; font-weight: 600; display: flex; align-items: center; gap: 10px; line-height: 1.4; white-space: pre-line;}
+        .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; margin-left: 15px;}
         .close-btn:hover { color: #ff4757; transform: rotate(90deg); }
-        .modal-body { font-size: 15px; color: #00ea77; line-height: 1.8; text-align: left; white-space: pre-line; max-height: 60vh; overflow-y: auto; }
-        .modal-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #30363d; display: flex; justify-content: center; }
+        .modal-body { font-size: 16px; color: #00ea77; line-height: 1.8; text-align: left; white-space: pre-line; max-height: 60vh; overflow-y: auto; }
+        .modal-footer { margin-top: 25px; padding-top: 20px; border-top: 1px solid #30363d; display: flex; justify-content: center; }
+        
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 50px; color: #8b949e; font-size: 16px; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px;}
+        ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -82,7 +146,7 @@
 
         function renderCards(data) {
             const grid = document.getElementById('serviceGrid');
-            const validData = data.filter(item => item.service_name); // Ignores any broken legacy data
+            const validData = data.filter(item => item.service_name); 
 
             if (!validData || validData.length === 0) {
                  grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found. Please Add an Entry from Admin Panel.</div>`;

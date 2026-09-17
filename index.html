@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Desktop View Forced on Mobile -->
-    <meta name="viewport" content="width=985">
+    <!-- Ye setting Mobile par zoom block karegi aur PC par normal rahegi -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -17,9 +17,10 @@
             overflow-x: hidden;
         }
         
+        /* Desktop ke liye Full Wide Container */
         .container { 
             width: 100%;
-            max-width: 1200px; 
+            max-width: 1100px; 
             margin: 0 auto; 
         }
         
@@ -34,11 +35,11 @@
         }
         .header-title i { color: #00ea77; margin-right: 10px; }
         
-        /* Grid fixed for desktop layout */
+        /* PC par auto 3 cards fit honge */
         .service-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
-            gap: 30px; 
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); 
+            gap: 25px; 
             align-items: start; 
         }
         
@@ -78,6 +79,7 @@
             flex: 1;
         }
         
+        /* Title Setting (Enter dabane par hi next line) */
         .service-name { 
             font-size: 20px; 
             color: #ffffff; 
@@ -146,6 +148,20 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* Mobile specific adjustments (No Zoom, properly fitted) */
+        @media (max-width: 600px) {
+            body { padding: 20px 15px; }
+            .header-title { font-size: 22px; margin-bottom: 25px; }
+            .service-grid { grid-template-columns: 1fr; gap: 20px; }
+            .service-card { min-height: 220px; }
+            .card-body { padding: 30px 20px; }
+            .service-name { font-size: 18px; margin-bottom: 20px; }
+            .modal { padding: 15px; }
+            .modal-content { padding: 25px 20px; }
+            .modal-title { font-size: 18px; }
+            .modal-body { font-size: 15px; }
+        }
     </style>
 </head>
 <body>

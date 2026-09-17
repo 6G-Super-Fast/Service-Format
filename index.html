@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Ye setting Mobile par zoom block karegi aur PC par normal rahegi -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +16,6 @@
             overflow-x: hidden;
         }
         
-        /* Desktop ke liye Full Wide Container */
         .container { 
             width: 100%;
             max-width: 1100px; 
@@ -35,7 +33,6 @@
         }
         .header-title i { color: #00ea77; margin-right: 10px; }
         
-        /* PC par auto 3 cards fit honge */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); 
@@ -79,7 +76,6 @@
             flex: 1;
         }
         
-        /* Title Setting (Enter dabane par hi next line) */
         .service-name { 
             font-size: 20px; 
             color: #ffffff; 
@@ -149,7 +145,6 @@
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-        /* Mobile specific adjustments (No Zoom, properly fitted) */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
             .header-title { font-size: 22px; margin-bottom: 25px; }
@@ -193,7 +188,9 @@
         const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
         const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
-        const myRepo = "6G-Super-Fast/Scammer-Person";
+        
+        // FIXED REPO LINK
+        const myRepo = "6G-Super-Fast/Service-Format";
 
         async function loadData() {
             try {

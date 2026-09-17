@@ -26,8 +26,6 @@
         .btn-yellow:hover { background: #e3b341; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(210, 153, 34, 0.4); }
         .btn-blue { background: #1f6feb; color: #fff; box-shadow: 0 4px 15px rgba(31, 111, 235, 0.2); margin-bottom: 0;}
         .btn-blue:hover { background: #388bfd; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(31, 111, 235, 0.4); }
-        .btn-wipe { background: #da3633; color: #fff; margin-top: 15px; }
-        .btn-wipe:hover { background: #f85149; transform: translateY(-2px); }
         .btn-logout { background: #da3633; color: #fff; margin-top: 15px; border: 1px solid #ff5555;}
         .btn-logout:hover { background: #ff4757; }
         .action-btns button { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; color: #fff; }
@@ -86,10 +84,6 @@
         
         <button class="btn-pro btn-blue" onclick="saveToCloud()">
             <i class="fa-solid fa-cloud-arrow-up"></i> SAVE TO SERVER
-        </button>
-        
-        <button class="btn-pro btn-wipe" onclick="wipeAllData()">
-            <i class="fa-solid fa-triangle-exclamation"></i> FORMAT ALL OLD DATA
         </button>
         
         <button class="btn-pro btn-logout" onclick="logoutAdmin()">
@@ -279,16 +273,6 @@
                 renderServiceList(); 
                 autoSuggestSNo(); 
                 alert("Entry Deleted! ⚠️ Click 'SAVE TO SERVER' to confirm on Github.");
-            }
-        }
-
-        async function wipeAllData() {
-            if(confirm("🛑 DANGER: Format everything? This deletes all entries and resets S.No to #1. Continue?")) {
-                serviceArray = [];
-                await saveToCloud();
-                autoSuggestSNo();
-                alert("System Wiped! Now your S.No will start at 1.");
-                closeModal();
             }
         }
 

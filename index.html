@@ -9,12 +9,27 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         
+        /* REMOVE DEFAULT BROWSER VERTICAL SCROLLBAR COMPLETELY */
+        html {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        html::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
         body { 
             background: #0f1319; 
             color: #c9d1d9; 
             min-height: 100vh; 
             padding: 40px 20px; 
             overflow-x: hidden;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        body::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         
         .container { 
@@ -207,12 +222,8 @@
         
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
-        ::-webkit-scrollbar { width: 8px; height: 8px;}
-        ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
         /* ========================================= */
-        /* MOBILE VIEW - COMPACT POPUP & NO HORIZONTAL SCROLL */
+        /* MOBILE VIEW - COMPACT POPUP & NO SCROLL   */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 20px 12px; }
@@ -237,7 +248,7 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING (PC LOOK, COMPACT SIZE, ZERO HORIZONTAL SCROLL) */
+            /* MOBILE POPUP STYLING */
             .modal { padding: 10px; }
             .modal-content { 
                 width: 92vw; 
@@ -250,13 +261,13 @@
             }
             .modal-title { font-size: 14px; }
             .modal-body { 
-                font-size: 12.5px; /* Clean compact size */
+                font-size: 12.5px; 
                 line-height: 1.5;
                 padding: 12px; 
                 max-height: 52vh; 
-                white-space: pre-wrap !important; /* Stope horizontal left-right scrolling */
-                word-break: break-word !important; /* Breaks long lines neatly */
-                overflow-x: hidden !important; /* Force block horizontal scrolling */
+                white-space: pre-wrap !important; 
+                word-break: break-word !important; 
+                overflow-x: hidden !important; 
             }
             .modal-footer { margin-top: 12px; padding-top: 10px; }
             #copyBtn { font-size: 12px; padding: 10px; }

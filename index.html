@@ -117,7 +117,7 @@
             font-weight: 600; 
             width: 100%;
             text-align: center;
-            white-space: pre-line; /* Respects manual line breaks / enters from JSON */
+            white-space: pre-line; 
             word-break: break-word;
             margin: auto 0; 
             line-height: 1.4;
@@ -161,11 +161,11 @@
             min-width: 600px; 
             max-width: 95vw; 
             box-shadow: 0 0 6px #00d4ff, 0 0 35px rgba(0, 212, 255, 0.45); 
-            animation: popIn 0.3s ease-out; 
+            animation: popIn 0.25s ease-out; 
             position: relative; 
             margin: auto;
         }
-        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes popIn { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
         .modal-header { 
             display: flex; 
@@ -212,7 +212,7 @@
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - EXACT PC STYLE CONTROL      */
+        /* MOBILE VIEW - SMOOTH ZOOMED-OUT POPUP     */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 20px 12px; }
@@ -232,12 +232,12 @@
             .service-name { 
                 font-size: 13.5px; 
                 line-height: 1.45; 
-                white-space: pre-line !important; /* Forces exact line breaks as written in JSON data */
+                white-space: pre-line !important; 
             }
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE ZOOM-OUT EFFECT FOR POPUP */
+            /* FIXED MOBILE POPUP ANIMATION (NO JERK) */
             .modal { padding: 10px; }
             .modal-content { 
                 width: 90vw; 
@@ -246,6 +246,7 @@
                 padding: 15px; 
                 transform: scale(0.85); 
                 transform-origin: center;
+                animation: mobilePopIn 0.25s ease-out; 
             }
             .modal-title { font-size: 14px; }
             .modal-body { 
@@ -255,6 +256,11 @@
             }
             .modal-footer { margin-top: 12px; padding-top: 10px; }
             #copyBtn { font-size: 12px; padding: 10px; }
+        }
+
+        @keyframes mobilePopIn { 
+            0% { transform: scale(0.7); opacity: 0; } 
+            100% { transform: scale(0.85); opacity: 1; } 
         }
     </style>
 </head>

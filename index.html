@@ -40,7 +40,7 @@
             flex-direction: column; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
             transition: all 0.3s ease;
-            min-height: 230px; 
+            min-height: 220px; 
         }
         
         /* CARD SKY BLUE GLOW */
@@ -110,7 +110,7 @@
             padding: 15px; 
         }
         
-        /* PC POPUP BOX - POPUP MEIN BHI SAME SKY BLUE GLOW ADD KIYA */
+        /* PC POPUP BOX */
         .modal-content { 
             background: #161b22; 
             padding: 25px 30px; 
@@ -171,22 +171,28 @@
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - 100% SAFE (NO CHANGES HERE) */
+        /* MOBILE PERFECT VIEW - 2 CARDS PER ROW     */
         /* ========================================= */
         @media screen and (max-width: 768px) {
-            body { padding: 15px 10px; }
+            body { padding: 12px 8px; }
             
             .service-grid { 
                 grid-template-columns: repeat(2, 1fr) !important; 
-                gap: 12px; 
+                gap: 10px; 
             }
-            .service-card { min-height: 180px; }
-            .card-body { padding: 12px 10px; }
-            .service-name { font-size: 12px; line-height: 1.3; }
-            .view-btn { padding: 8px 6px; font-size: 11px; margin-top: 8px; }
-            .s-no { font-size: 11px; padding: 2px 8px; }
+            .service-card { min-height: 165px; border-radius: 10px; }
+            .card-body { padding: 10px 8px; }
             
-            .modal { padding: 15px; }
+            /* TITLE SCALE OPTIMIZED FOR MOBILE 2-COLUMN */
+            .service-name { 
+                font-size: 11.5px; 
+                line-height: 1.35; 
+            }
+            
+            .view-btn { padding: 8px 4px; font-size: 10.5px; margin-top: 6px; border-radius: 6px; }
+            .s-no { font-size: 10.5px; padding: 2px 7px; }
+            
+            .modal { padding: 10px; }
             .modal-content { 
                 width: 100%; 
                 min-width: unset !important; 

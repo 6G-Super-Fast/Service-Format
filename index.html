@@ -99,16 +99,17 @@
             backdrop-filter: blur(5px); 
             align-items: center; 
             justify-content: center; 
-            padding: 15px; 
+            padding: 20px; /* Thoda space chhora hai design ke liye */
         }
         
+        /* POPUP AB BAHUT BADA KAR DIYA HAI (850px width tak jayega PC par) */
         .modal-content { 
             background: #161b22; 
             padding: 25px; 
             border-radius: 14px; 
             border: 1px solid #00d4ff; 
             width: 100%; 
-            max-width: 550px; 
+            max-width: 850px; /* Pehle ye sirf 550px tha */
             box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
@@ -128,15 +129,14 @@
         .close-btn { color: #da3633; font-size: 24px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 5px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* EXACT FORMAT LOGIC: Line tootegi nahi, box me left-right scroll aa jayega */
         .modal-body { 
             font-size: 14px; 
             color: #00ea77; 
             line-height: 1.6; 
             text-align: left; 
-            white-space: pre; /* Text strictly waise hi rahega, line break nahi hoga */
-            max-height: 65vh; 
-            overflow: auto; /* Agar line lambi hai, to box ke andar hi scrollbar aayega */
+            white-space: pre; /* Text tootega nahi */
+            max-height: 70vh; 
+            overflow: auto; 
             background: #010409;
             padding: 15px;
             border-radius: 8px;
@@ -151,6 +151,7 @@
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
+        /* MOBILE SPECIFIC FIXES */
         @media screen and (max-width: 600px) {
             body { padding: 15px 10px; }
             .service-grid { 
@@ -163,9 +164,14 @@
             .view-btn { padding: 8px 6px; font-size: 11px; }
             .s-no { font-size: 11px; padding: 2px 8px; }
             
-            .modal-content { padding: 15px; width: 100%; max-width: 100%;}
+            /* Mobile par modal puri screen lega aur font chota ho jayega taaki scroll na karna pade */
+            .modal { padding: 10px; }
+            .modal-content { padding: 15px; width: 100%; max-width: 100%; margin: 0;}
             .modal-title { font-size: 15px; }
-            .modal-body { font-size: 13px; padding: 10px; }
+            .modal-body { 
+                font-size: 11px; /* Font size adjust kiya taaki line width me set ho jaye */
+                padding: 10px; 
+            }
         }
     </style>
 </head>

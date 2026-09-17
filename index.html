@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=985">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -49,7 +49,7 @@
             flex-direction: column; 
             box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
             transition: transform 0.2s, border-color 0.3s;
-            min-height: 240px;
+            min-height: 260px; /* Mobile aur Desktop dono ke liye perfect balanced height */
         }
         .service-card:hover { transform: translateY(-5px); border-color: #00ea77; }
         
@@ -144,19 +144,6 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
-
-        @media (max-width: 600px) {
-            body { padding: 20px 15px; }
-            .header-title { font-size: 22px; margin-bottom: 25px; }
-            .service-grid { grid-template-columns: 1fr; gap: 20px; }
-            .service-card { min-height: 220px; }
-            .card-body { padding: 30px 20px; }
-            .service-name { font-size: 18px; margin-bottom: 20px; }
-            .modal { padding: 15px; }
-            .modal-content { padding: 25px 20px; }
-            .modal-title { font-size: 18px; }
-            .modal-body { font-size: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -188,8 +175,6 @@
         const TOKEN_PART_1 = "ghp_ib4h4kWYgpi9tp7N"; 
         const TOKEN_PART_2 = "WAmVKpx0IU4Gtk18s8tG"; 
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
-        
-        // FIXED REPO LINK
         const myRepo = "6G-Super-Fast/Service-Format";
 
         async function loadData() {

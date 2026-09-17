@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Force exact 985px desktop viewport on mobile & PC -->
-    <meta name="viewport" content="width=985">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSC Services & Formats</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -15,14 +14,16 @@
             color: #c9d1d9; 
             min-height: 100vh; 
             padding: 40px 20px; 
+            overflow-x: hidden;
         }
         
         .container { 
-            width: 985px; 
+            width: 100%;
+            max-width: 1400px; 
             margin: 0 auto; 
         }
         
-        /* PC & Mobile dono par exact 4 columns structure */
+        /* PC GRID - 4 CARDS */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -30,12 +31,6 @@
             align-items: start; 
         }
         
-        /* ROTATING BORDER ANIMATION SETUP */
-        @keyframes rotateBorder {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .service-card { 
             background: #161b22; 
             border: 1px solid #30363d; 
@@ -44,34 +39,15 @@
             display: flex; 
             flex-direction: column; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             min-height: 230px; 
-            position: relative;
         }
         
+        /* CARD SKY BLUE GLOW */
         .service-card:hover { 
             transform: translateY(-4px); 
-            border-color: transparent;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
-        }
-
-        .service-card:hover::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #00d4ff 100%);
-            border-radius: 13px;
-            z-index: -1;
-            animation: rotateBorder 2.5s linear infinite;
-        }
-
-        .service-card:hover::after {
-            content: '';
-            position: absolute;
-            inset: 1px;
-            background: #161b22;
-            border-radius: 11px;
-            z-index: -1;
+            border-color: #00d4ff; 
+            box-shadow: 0 0 6px #00d4ff, 0 0 25px rgba(0, 212, 255, 0.5); 
         }
         
         .card-header { 
@@ -90,7 +66,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between; 
-            align-items: center;     
+            align-items: center;    
             flex: 1;
         }
         
@@ -134,39 +110,20 @@
             padding: 15px; 
         }
         
+        /* PC POPUP BOX */
         .modal-content { 
             background: #161b22; 
             padding: 25px 30px; 
             border-radius: 12px; 
-            border: 1px solid transparent; 
+            border: 1px solid #00d4ff; 
             width: fit-content; 
             min-width: 600px; 
             max-width: 95vw; 
-            box-shadow: 0 0 35px rgba(0, 212, 255, 0.45); 
+            box-shadow: 0 0 6px #00d4ff, 0 0 35px rgba(0, 212, 255, 0.45); 
             animation: popIn 0.3s ease-out; 
             position: relative; 
             margin: auto;
         }
-
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #00d4ff 100%);
-            border-radius: 13px;
-            z-index: -1;
-            animation: rotateBorder 3s linear infinite;
-        }
-
-        .modal-content::after {
-            content: '';
-            position: absolute;
-            inset: 1px;
-            background: #161b22;
-            border-radius: 11px;
-            z-index: -1;
-        }
-
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
         .modal-header { 
@@ -182,6 +139,7 @@
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
+        /* BLACK FORMAT BOX */
         .modal-body { 
             font-size: 15px; 
             color: #00ea77; 
@@ -211,6 +169,51 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* ========================================= */
+        /* MOBILE VIEW FIXES */
+        /* ========================================= */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px 10px; }
+            
+            .service-grid { 
+                grid-template-columns: repeat(2, 1fr) !important; 
+                gap: 10px; 
+            }
+            .service-card { 
+                min-height: 175px; 
+            }
+            .card-body { 
+                padding: 10px 8px; 
+            }
+            .service-name { 
+                font-size: 11.5px; 
+                line-height: 1.35; 
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+            }
+            .view-btn { padding: 8px 4px; font-size: 10.5px; margin-top: 6px; letter-spacing: 0px; }
+            .s-no { font-size: 10.5px; padding: 2px 6px; }
+            
+            .modal { padding: 10px; }
+            .modal-content { 
+                width: 100%; 
+                min-width: unset !important; 
+                padding: 15px; 
+            }
+            .modal-title { font-size: 14px; }
+            .modal-body { 
+                font-size: 12px; 
+                padding: 10px; 
+                max-height: 65vh; 
+            }
+            .modal-footer { margin-top: 10px; padding-top: 10px; }
+            #copyBtn { font-size: 11px; padding: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -262,7 +265,7 @@
             const validData = data.filter(item => item.service_name); 
 
             if (!validData || validData.length === 0) {
-                 grid.html = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found. Please Add an Entry from Admin Panel.</div>`;
+                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Data Found. Please Add an Entry from Admin Panel.</div>`;
                  return;
             }
 

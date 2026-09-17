@@ -163,7 +163,7 @@
             backdrop-filter: blur(5px); 
             align-items: center; 
             justify-content: center; 
-            padding: 15px; 
+            padding: 10px; 
             overflow: hidden; 
         }
         
@@ -233,7 +233,7 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - ZOOM-OUT PHOTO STYLE POPUP  */
+        /* MOBILE VIEW - PERFECT FIT COMPACT POPUP   */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 15px 8px; min-height: 101vh; } 
@@ -258,20 +258,19 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP - ZOOMED-OUT COMPACT VIEW LIKE AN IMAGE */
+            /* MOBILE POPUP - STRICTLY CONFINED TO SCREEN BOUNDS */
             .modal { 
-                padding: 5px; 
+                padding: 8px; 
                 align-items: center; 
                 justify-content: center;
             }
             .modal-content { 
-                width: 95vw;[cite: 1]
-                min-width: unset !important;[cite: 1]
-                max-width: 360px; /* Compact width like a zoomed-out photo */
-                max-height: 78vh; 
+                width: 90vw; /* Perfect width that never overflows screen edges */
+                min-width: unset !important; 
+                max-width: 330px; /* Compact width */
+                max-height: 75vh; /* Safe height keeping it well within screen */
                 padding: 12px; 
-                transform: scale(0.88); /* Photo jaisa chhota zoom-out effect jo screen ke beech mein fit rahe */
-                transform-origin: center;
+                transform: none; 
                 animation: mobilePopIn 0.25s ease-out; 
                 display: flex;
                 flex-direction: column;
@@ -284,23 +283,23 @@
             }
             .modal-title { font-size: 13px; }
             .modal-body { 
-                font-size: 11.5px;[cite: 1]
+                font-size: 11px; 
                 line-height: 1.4;
-                padding: 8px;[cite: 1]
-                max-height: 42vh;[cite: 1]
-                overflow-x: hidden !important;[cite: 1]
-                overflow-y: auto !important;[cite: 1]
-                white-space: pre-wrap !important;[cite: 1]
-                word-break: normal !important;[cite: 1]
-                overflow-wrap: break-word !important;[cite: 1]
+                padding: 8px; 
+                max-height: 38vh; /* Controlled inner scroll area so header/footer are 100% visible */
+                overflow-x: hidden !important; 
+                overflow-y: auto !important; 
+                white-space: pre-wrap !important; 
+                word-break: normal !important; 
+                overflow-wrap: break-word !important; 
             }
             .modal-footer { margin-top: 8px; padding-top: 6px; }
             #copyBtn { font-size: 11px; padding: 9px; }
         }
 
         @keyframes mobilePopIn { 
-            0% { transform: scale(0.7); opacity: 0; } 
-            100% { transform: scale(0.88); opacity: 1; } 
+            0% { transform: scale(0.8); opacity: 0; } 
+            100% { transform: scale(1); opacity: 1; } 
         }
     </style>
 </head>

@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Fixed 985px Viewport: Mobile par bhi exact Desktop view dega -->
-    <meta name="viewport" content="width=985">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -14,35 +13,35 @@
             background: #0f1319; 
             color: #c9d1d9; 
             min-height: 100vh; 
-            padding: 40px 30px; 
-            width: 985px; /* Forced desktop width layout */
-            margin: 0 auto;
+            padding: 40px 20px; 
         }
         
         .container { 
             width: 100%;
-            max-width: 985px; 
+            max-width: 1400px; 
             margin: 0 auto; 
         }
         
-        /* Main Header Title: Hamesha ek hi line mein fix rahega */
+        /* Main Header Title: Hamesha ek hi line mein rahega */
         .header-title { 
             text-align: center; 
             color: #00d4ff; 
             margin-bottom: 45px; 
-            font-size: 32px; 
+            font-size: clamp(20px, 4vw, 32px); 
             font-weight: 700; 
             text-transform: uppercase; 
             letter-spacing: 1px;
             white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .header-title i { color: #00ea77; margin-right: 12px; }
+        .header-title i { color: #00ea77; margin-right: 10px; }
         
-        /* Desktop/Mobile dono par 2 Grid (2 cards per row) */
+        /* PC par by default 4 Cards per row */
         .service-grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 25px; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 22px; 
             align-items: start; 
         }
         
@@ -55,7 +54,7 @@
             flex-direction: column; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
             transition: transform 0.2s, border-color 0.3s;
-            min-height: 230px;
+            min-height: 220px;
         }
         .service-card:hover { transform: translateY(-4px); border-color: #00ea77; }
         
@@ -70,7 +69,7 @@
         .s-no { background: #00d4ff; color: #000; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 700; }
         
         .card-body { 
-            padding: 25px 20px; 
+            padding: 25px 18px; 
             text-align: center; 
             display: flex;
             flex-direction: column;
@@ -79,9 +78,9 @@
             flex: 1;
         }
         
-        /* Service Name: Jaisa enter karke loge waisa hi dikhega */
+        /* Service Name */
         .service-name { 
-            font-size: 18px; 
+            font-size: 16px; 
             color: #ffffff; 
             font-weight: 600; 
             margin-bottom: 20px; 
@@ -148,12 +147,25 @@
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #010409; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* MOBILE SPECIFIC RULE: Exactly 2 Cards Per Row (2 Grid) on Mobile screens */
+        @media screen and (max-width: 768px) {
+            .service-grid { 
+                grid-template-columns: repeat(2, 1fr) !important; 
+                gap: 12px;
+            }
+            body { padding: 20px 10px; }
+            .card-body { padding: 18px 10px; }
+            .service-name { font-size: 13px; margin-bottom: 15px; }
+            .view-btn { padding: 10px 6px; font-size: 11px; }
+            .s-no { font-size: 11px; padding: 3px 8px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-title">
-            <i class="fa-solid fa-store"></i> 6G SUPER-FAST ⚡
+            <i class="fa-solid fa-store"></i> 6G Super-Fast ⚡
         </div>
         <div id="serviceGrid" class="service-grid">
             <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading Services from Server...</div>

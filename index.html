@@ -256,11 +256,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- SEARCH BAR ADDED AT THE TOP WITH PROPER SPACING -->
+        <!-- SEARCH BAR AT THE TOP -->
         <div class="search-container">
             <div class="search-box-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search services or format keywords..." onkeyup="filterServices()">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search service title..." onkeyup="filterServices()">
             </div>
         </div>
 
@@ -290,7 +290,7 @@
         const GIT_TOKEN = TOKEN_PART_1 + TOKEN_PART_2; 
         const myRepo = "6G-Super-Fast/Service-Format";
 
-        let allServicesData = []; // Store raw data for search filtering
+        let allServicesData = []; 
 
         async function loadData() {
             try {
@@ -308,12 +308,13 @@
             }
         }
 
+        // USING DATA ATTRIBUTES INSTEAD OF URL ENCODING TO PREVENT FREEZING
         function renderCards(data) {
             const grid = document.getElementById('serviceGrid');
             const validData = data.filter(item => item.service_name); 
 
             if (!validData || validData.length === 0) {
-                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Services Found.</div>`;
+                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Title Found.</div>`;
                  return;
             }
 
@@ -322,7 +323,8 @@
                 let formatText = item.format_details ? item.format_details : "";
                 let rawTitle = item.service_name || "Service";
                 
-                let encodedFormat = encodeURIComponent(formatText);
+                // Safe base64 encoding to prevent quote/special-character breaking bugs
+                let safeFormat = btoa(unescape(encodeURIComponent(formatText)));
 
                 return `
                     <div class="service-card">
@@ -331,7 +333,7 @@
                         </div>
                         <div class="card-body">
                             <div class="service-name">${rawTitle}</div>
-                            <button class="view-btn" onclick="openModal('${encodedFormat}')">
+                            <button class="view-btn" onclick="openModalFromBase64('${safeFormat}')">
                                 <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
                             </button>
                         </div>
@@ -340,32 +342,34 @@
             }).join('');
         }
 
-        // REAL-TIME SEARCH FILTER FUNCTION
+        // STRICT TITLE-ONLY SEARCH FILTER FUNCTION
         function filterServices() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allServicesData.filter(item => {
                 const nameMatch = item.service_name && item.service_name.toLowerCase().includes(query);
-                const formatMatch = item.format_details && item.format_details.toLowerCase().includes(query);
                 const sNoMatch = item.s_no && item.s_no.toString().toLowerCase().includes(query);
-                return nameMatch || formatMatch || sNoMatch;
+                return nameMatch || sNoMatch; 
             });
             renderCards(filtered);
         }
 
         let currentFormatText = "";
 
-        function openModal(encodedDetails) {
-            let details = decodeURIComponent(encodedDetails).trim();
-            
-            document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> #FORMAT`;
-            
-            document.getElementById('modalBody').innerText = details; 
-            currentFormatText = details;
-            
-            document.getElementById('formatModal').style.display = 'flex';
-            const copyBtn = document.getElementById('copyBtn');
-            copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> COPY FORMAT';
-            copyBtn.style.background = '#2ea043';
+        function openModalFromBase64(base64Details) {
+            try {
+                let details = decodeURIComponent(escape(atob(base64Details))).trim();
+                
+                document.getElementById('modalTitle').innerHTML = `<i class="fa-solid fa-file-contract"></i> #FORMAT`;
+                document.getElementById('modalBody').innerText = details; 
+                currentFormatText = details;
+                
+                document.getElementById('formatModal').style.display = 'flex';
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> COPY FORMAT';
+                copyBtn.style.background = '#2ea043';
+            } catch(err) {
+                console.error("Error decoding format details", err);
+            }
         }
 
         function closeModal() { document.getElementById('formatModal').style.display = 'none'; }

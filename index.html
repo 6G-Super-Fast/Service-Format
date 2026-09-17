@@ -232,10 +232,10 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - IMMERSIVE FULL SCREEN       */
+        /* MOBILE VIEW - LIFTED UP FROM SEARCH BAR   */
         /* ========================================= */
         @media screen and (max-width: 768px) {
-            body { padding: 15px 8px; min-height: 101vh; } /* Forces minimal extra height to trigger browser address bar auto-hide */
+            body { padding: 15px 8px; min-height: 101vh; } 
             .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
@@ -257,18 +257,22 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING */
-            .modal { padding: 6px; }
+            /* MOBILE POPUP STYLING - LIFTED HIGHER TO AVOID SEARCH BAR */
+            .modal { 
+                padding: 10px 10px 60px 10px; /* Extra bottom padding pushes modal up away from browser bar */
+                align-items: center;
+            }
             .modal-content { 
                 width: 96vw; 
                 min-width: unset !important; 
                 max-width: 450px; 
-                max-height: 98vh;
+                max-height: 82vh; /* Restricted height so it stays clear of the bottom bar */
                 padding: 12px; 
                 transform: scale(0.92); 
                 transform-origin: center;
                 animation: mobilePopIn 0.25s ease-out; 
                 overflow: hidden;
+                margin-bottom: 40px; /* Lifts modal upward */
             }
             .modal-title { font-size: 14px; }
             .modal-body { 

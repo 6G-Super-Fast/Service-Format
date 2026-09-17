@@ -212,7 +212,7 @@
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - SMOOTH ZOOMED-OUT POPUP     */
+        /* MOBILE VIEW - COMPACT POPUP & NO HORIZONTAL SCROLL */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 20px 12px; }
@@ -237,12 +237,12 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* FIXED MOBILE POPUP ANIMATION (NO JERK) */
+            /* MOBILE POPUP STYLING (PC LOOK, COMPACT SIZE, ZERO HORIZONTAL SCROLL) */
             .modal { padding: 10px; }
             .modal-content { 
-                width: 90vw; 
+                width: 92vw; 
                 min-width: unset !important; 
-                max-width: 420px; 
+                max-width: 440px; 
                 padding: 15px; 
                 transform: scale(0.85); 
                 transform-origin: center;
@@ -250,9 +250,13 @@
             }
             .modal-title { font-size: 14px; }
             .modal-body { 
-                font-size: 14px; 
+                font-size: 12.5px; /* Clean compact size */
+                line-height: 1.5;
                 padding: 12px; 
-                max-height: 55vh; 
+                max-height: 52vh; 
+                white-space: pre-wrap !important; /* Stope horizontal left-right scrolling */
+                word-break: break-word !important; /* Breaks long lines neatly */
+                overflow-x: hidden !important; /* Force block horizontal scrolling */
             }
             .modal-footer { margin-top: 12px; padding-top: 10px; }
             #copyBtn { font-size: 12px; padding: 10px; }

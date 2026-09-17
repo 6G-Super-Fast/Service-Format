@@ -167,7 +167,7 @@
             overflow: hidden; 
         }
         
-        /* PC POPUP BOX */
+        /* PC POPUP BOX - CONTROLLED HEIGHT WITH INNER SCROLL */
         .modal-content { 
             background: #161b22; 
             padding: 25px 30px; 
@@ -176,7 +176,7 @@
             width: fit-content; 
             min-width: 600px; 
             max-width: 95vw; 
-            max-height: 92vh; 
+            max-height: 85vh; /* PC par bhi popup ki maximum height fix kar di hai[cite: 1] */
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 6px #00d4ff, 0 0 35px rgba(0, 212, 255, 0.45); 
@@ -201,7 +201,7 @@
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* BLACK FORMAT BOX */
+        /* BLACK FORMAT BOX - PC INNER SCROLL */
         .modal-body { 
             font-size: 15px; 
             color: #00ea77; 
@@ -209,9 +209,8 @@
             text-align: left; 
             white-space: pre-wrap; 
             word-break: break-word;
-            height: auto; 
-            max-height: none; 
-            overflow: visible; 
+            max-height: 52vh; /* PC par lamba format hone par sirf andar scroll aayega[cite: 1] */
+            overflow-y: auto !important; 
             background: #010409;
             padding: 20px; 
             border-radius: 8px;
@@ -232,10 +231,10 @@
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
         /* ========================================= */
-        /* MOBILE VIEW - IMMERSIVE FULL SCREEN       */
+        /* MOBILE VIEW - COMPACT POPUP & FULLY VISIBLE */
         /* ========================================= */
         @media screen and (max-width: 768px) {
-            body { padding: 15px 8px; min-height: 101vh; } /* Forces minimal extra height to trigger browser address bar auto-hide */
+            body { padding: 15px 8px; min-height: 101vh; } 
             .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
@@ -257,37 +256,42 @@
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP STYLING */
-            .modal { padding: 6px; }
-            .modal-content { 
-                width: 96vw; 
-                min-width: unset !important; 
-                max-width: 450px; 
-                max-height: 98vh;
+            /* MOBILE POPUP STYLING - CENTERED, COMPACT, BUTTON ALWAYS VISIBLE */
+            .modal { 
                 padding: 12px; 
-                transform: scale(0.92); 
-                transform-origin: center;
-                animation: mobilePopIn 0.25s ease-out; 
-                overflow: hidden;
+                align-items: center; 
+                justify-content: center;
             }
-            .modal-title { font-size: 14px; }
+            .modal-content { 
+                width: 90vw; 
+                min-width: unset !important; 
+                max-width: 380px; 
+                max-height: 80vh; 
+                padding: 14px; 
+                transform: none; 
+                animation: mobilePopIn 0.25s ease-out; 
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                margin: auto;
+            }
+            .modal-title { font-size: 13.5px; }
             .modal-body { 
-                font-size: 13px; 
-                line-height: 1.5;
+                font-size: 12px; 
+                line-height: 1.45;
                 padding: 10px; 
-                height: auto;
-                max-height: none; 
-                overflow: visible !important; 
+                max-height: 45vh; 
+                overflow-y: auto !important; 
                 white-space: pre-wrap !important; 
                 word-break: break-word !important; 
             }
             .modal-footer { margin-top: 10px; padding-top: 8px; }
-            #copyBtn { font-size: 12px; padding: 10px; }
+            #copyBtn { font-size: 11.5px; padding: 10px; }
         }
 
         @keyframes mobilePopIn { 
-            0% { transform: scale(0.75); opacity: 0; } 
-            100% { transform: scale(0.92); opacity: 1; } 
+            0% { transform: scale(0.8); opacity: 0; } 
+            100% { transform: scale(1); opacity: 1; } 
         }
     </style>
 </head>

@@ -2,20 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport set to prevent zoom on mobile, allow scroll only -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=985">
     <title>6G Super-Fast ⚡</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        
-        /* Mobile pinch-zoom block & touch optimization */
-        html { 
-            touch-action: pan-x pan-y; 
-            -webkit-text-size-adjust: 100%;
-        }
-
         body { 
             background: #0f1319; 
             color: #c9d1d9; 
@@ -57,7 +49,7 @@
             flex-direction: column; 
             box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
             transition: transform 0.2s, border-color 0.3s;
-            min-height: 260px;
+            min-height: 240px;
         }
         .service-card:hover { transform: translateY(-5px); border-color: #00ea77; }
         
@@ -66,13 +58,10 @@
             background: #1c2128; 
             border-bottom: 1px solid #30363d; 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: flex-start; /* S.No ko left side mein set kar diya hai */
             align-items: center; 
-            font-weight: 700; 
-            font-size: 14px; 
-            color: #8b949e; 
         }
-        .s-no { background: #00d4ff; color: #000; padding: 5px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; }
+        .s-no { background: #00d4ff; color: #000; padding: 5px 14px; border-radius: 6px; font-size: 14px; font-weight: 700; }
         
         .card-body { 
             padding: 35px 25px; 
@@ -217,7 +206,6 @@
                 return `
                     <div class="service-card">
                         <div class="card-header">
-                            <span>CSC SERVICE</span>
                             <span class="s-no"># ${sNo}</span>
                         </div>
                         <div class="card-body">

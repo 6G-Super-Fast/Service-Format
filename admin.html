@@ -119,7 +119,7 @@
         
         .drag-icon { color: #8b949e; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 18px; }
 
-        /* SEPARATE S.NO BADGE */
+        /* S.NO BADGE */
         .sno-badge {
             background: #00d4ff;
             color: #000;
@@ -130,7 +130,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 42px;
+            min-width: 44px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0, 212, 255, 0.25);
         }
@@ -161,6 +161,7 @@
             margin-top: 2px;
         }
 
+        /* MODAL SECTION HEADINGS */
         .modal-section-title {
             display: flex;
             align-items: center;
@@ -176,7 +177,21 @@
         .modal-section-title.manual { color: #00ea77; }
 
         .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
-        .modal-content { background: #161b22; padding: 30px; border-radius: 16px; border: 1px solid #00d4ff; width: 95%; max-width: 800px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.6); animation: popIn 0.3s ease-out; }
+        
+        /* POPUP WIDTH SET TO 95% AND MAX 800px */
+        .modal-content { 
+            background: #161b22; 
+            padding: 30px; 
+            border-radius: 16px; 
+            border: 1px solid #00d4ff; 
+            width: 95%; 
+            max-width: 800px; 
+            max-height: 85vh; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
+            animation: popIn 0.3s ease-out; 
+        }
         
         @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
@@ -283,6 +298,7 @@
                     const decodedData = decodeURIComponent(escape(atob(data.content)));
                     const parsedData = JSON.parse(decodedData);
                     serviceArray = parsedData.filter(item => item.service_name); 
+                    updateSerialNumbers();
                     autoSuggestSNo();
                 }
             } catch (error) {
@@ -309,6 +325,7 @@
                     sessionStorage.setItem('isCscAdminLoggedIn', 'true');
                     document.getElementById('loginSection').style.display = 'none';
                     document.getElementById('editorSection').style.display = 'block';
+                    updateSerialNumbers();
                     autoSuggestSNo();
                 } else {
                     throw new Error("Failed");
@@ -332,24 +349,23 @@
             document.querySelector('#loginSection .btn-green').innerHTML = "<i class='fa-solid fa-right-to-bracket'></i> ENTER ADMIN PANEL";
         }
 
-        // Auto suggest based on selected category count
+        // Selected category ke current count ke hisaab se agla number suggest karega
         function autoSuggestSNo() {
             const currentCat = document.getElementById('categoryInput').value;
-            const filtered = serviceArray.filter(item => {
+            const categoryItems = serviceArray.filter(item => {
                 const isManual = item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"));
                 return currentCat === 'manual' ? isManual : !isManual;
             });
-            document.getElementById('sNoInput').value = filtered.length + 1;
+            document.getElementById('sNoInput').value = categoryItems.length + 1;
         }
 
         async function processServiceEntry() {
-            const s_no = document.getElementById('sNoInput').value.trim();
             const category = document.getElementById('categoryInput').value;
             let service_name = document.getElementById('serviceNameInput').value.trim();
             const format_details = document.getElementById('formatDetailsInput').value.trim();
             const actionBtn = document.getElementById('actionBtn');
 
-            if(!s_no || !service_name || !format_details) { 
+            if(!service_name || !format_details) { 
                 actionBtn.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> FILL ALL FIELDS ⚠️";
                 actionBtn.style.background = "#d29922";
                 setTimeout(() => {
@@ -365,9 +381,20 @@
             }
 
             if(editIndex === null) {
-                serviceArray.push({ s_no, category, service_name, format_details });
+                // New entry: Array ke end me add karo
+                serviceArray.push({ category, service_name, format_details });
             } else {
-                serviceArray[editIndex] = { s_no, category, service_name, format_details };
+                const oldItem = serviceArray[editIndex];
+                const oldWasManual = oldItem.category === 'manual' || (oldItem.service_name && oldItem.service_name.toUpperCase().includes("MANUAL"));
+                const newIsManual = category === 'manual';
+
+                // AGAR CATEGORY CHANGE HUI HAI (jaise GOV se MANUAL): Purani jagah se hatao aur nayi category ke aakhiri me shift karo
+                if (oldWasManual !== newIsManual) {
+                    serviceArray.splice(editIndex, 1);
+                    serviceArray.push({ category, service_name, format_details });
+                } else {
+                    serviceArray[editIndex] = { category, service_name, format_details };
+                }
                 editIndex = null;
                 document.getElementById('formTitle').innerHTML = "<i class='fa-solid fa-file-circle-plus'></i> Add New Service Format";
                 document.getElementById('actionBtn').className = "btn-pro btn-green";
@@ -375,7 +402,9 @@
 
             document.getElementById('serviceNameInput').value = "";
             document.getElementById('formatDetailsInput').value = "";
-            document.getElementById('categoryInput').value = "gov";
+            
+            // Re-order aur auto number assign karo taaki category ke last me sahi number mile
+            updateSerialNumbers();
             autoSuggestSNo();
 
             actionBtn.innerHTML = "<i class='fa-solid fa-circle-check'></i> SAVED TO LIST ✅";
@@ -398,13 +427,13 @@
             renderServiceListLocal();
         }
 
-        function createListItemHTML(item, index, displayNumber, isManual) {
+        function createListItemHTML(item, index, isManual) {
             let sName = (item.service_name || "Old Format Entry").replace(/\n/g, ' ');
 
             return `
                 <div class="list-item" draggable="true" data-index="${index}">
                     <span class="drag-icon"><i class="fa-solid fa-grip-vertical"></i></span>
-                    <span class="sno-badge ${isManual ? 'manual-badge' : ''}">#${displayNumber}</span>
+                    <span class="sno-badge ${isManual ? 'manual-badge' : ''}">#${item.s_no}</span>
                     <div class="item-text-wrap">
                         <div class="item-title">${sName}</div>
                         <div class="item-sub">Format Data Logged</div>
@@ -438,27 +467,25 @@
 
             let fullHtml = "";
 
-            // Gov Services reset to #1
             if (govItems.length > 0) {
                 fullHtml += `
                     <div class="modal-section-title gov">
                         <i class="fa-solid fa-building-columns"></i> GOV SERVICES (${govItems.length})
                     </div>
                 `;
-                govItems.forEach((entry, idx) => {
-                    fullHtml += createListItemHTML(entry.item, entry.index, idx + 1, false);
+                govItems.forEach(entry => {
+                    fullHtml += createListItemHTML(entry.item, entry.index, false);
                 });
             }
 
-            // Manual Services reset to #1
             if (manualItems.length > 0) {
                 fullHtml += `
                     <div class="modal-section-title manual">
                         <i class="fa-solid fa-gears"></i> MANUAL SERVICES (${manualItems.length})
                     </div>
                 `;
-                manualItems.forEach((entry, idx) => {
-                    fullHtml += createListItemHTML(entry.item, entry.index, idx + 1, true);
+                manualItems.forEach(entry => {
+                    fullHtml += createListItemHTML(entry.item, entry.index, true);
                 });
             }
 
@@ -466,14 +493,18 @@
             addDragAndDropListeners();
         }
 
+        // Har category ke andar alag se 1, 2, 3 sequence maintain karna
         function updateSerialNumbers() {
             let govCount = 1;
             let manCount = 1;
+
             serviceArray.forEach((item) => {
                 const isManual = item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"));
                 if(isManual) {
+                    item.category = 'manual';
                     item.s_no = (manCount++).toString();
                 } else {
+                    item.category = 'gov';
                     item.s_no = (govCount++).toString();
                 }
             });
@@ -504,6 +535,7 @@
         function swapItems(fromIndex, toIndex) {
             const itemToMove = serviceArray.splice(fromIndex, 1)[0];
             serviceArray.splice(toIndex, 0, itemToMove);
+            updateSerialNumbers();
             renderServiceListLocal();
         }
 
@@ -531,6 +563,7 @@
 
         async function deleteService(index) {
             serviceArray.splice(index, 1);
+            updateSerialNumbers();
             renderServiceListLocal();
             autoSuggestSNo();
         }

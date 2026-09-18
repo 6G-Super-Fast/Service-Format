@@ -66,19 +66,25 @@
     "category": "gov"
   },
   {
-    "s_no": "12",
+    "category": "gov",
+    "service_name": "UTI PAN PDF \nWITHOUT OTP ORIGINAL ⚡",
+    "format_details": "UTI PAN PDF WITHOUT OTP ORIGINAL ✅\n\nPAN NO - \nDOB - \nNAME -\nUID NO - \n\nTIME SAME DAY ✅",
+    "s_no": "12"
+  },
+  {
+    "s_no": "13",
     "service_name": "LOST DL NUMBER FIND ⚡",
     "format_details": "DETAILS TO DL NUMBER & PDF INSTENT ✅\n\n1. NAME :\n2. FATHER NAME :\n3. DOB :\n4. STATE NAME :\n<----------------------------->\nTIME- 4-5 MINT ONLY\n<----------------------------->",
     "category": "gov"
   },
   {
-    "s_no": "13",
+    "s_no": "14",
     "service_name": "UTTAR PRADESH LAND \nSEEDING ⚡",
     "format_details": "UTTAR PRADESH LAND SEEDING ✅\n\nNAME - \nREGISTRATION -\nSTATE - \n\nTIME : 24/48 HOUR UPDATE YES ✅",
     "category": "gov"
   },
   {
-    "s_no": "14",
+    "s_no": "15",
     "service_name": "WITHOUT OTP \nVOTER MOBILE LINK ⚡",
     "format_details": "VOTER ID MOBILE NO LINK INSTENT ✅\n\nVOTER ID :\nMOBILE NO :\n\nINSTENT LINK DIRECT FAST ✅",
     "category": "gov"
@@ -96,25 +102,25 @@
     "format_details": "ᴅᴇʟʜɪ ʙɪʀᴛʜ ᴄᴇʀᴛɪꜰɪᴄᴀᴛᴇ ꜰᴏʀᴍᴀᴛ ✅\n\nNAME - \nDOB -\nGENDER - \n---------------------------->\nMOTHER ɴᴀᴍᴇ - \nFATHER ɴᴀᴍᴇ -\n---------------------------->\nपूरा पता -\n\n\nNOTE: \nDATA KO PLS CAPITAL LETTER M HI TYPE KRKE BHEJE ✅"
   },
   {
-    "s_no": "15",
+    "s_no": "16",
     "service_name": "GENERATE EID \nTO UID NO FINDER ⚡",
     "format_details": "GENERATE EID TO UID NO FINDER ✅\n\nNAME :\nEID 28 DIGIT :\n\nTIME : 12/24 HOUR ✅",
     "category": "gov"
   },
   {
-    "s_no": "16",
+    "s_no": "17",
     "service_name": "SUSPENDED EID \nTO UID NO FINDER ⚡",
     "format_details": "SUSPENDED EID TO UID NO FINDER ✅\n\nNAME :\nEID 28 DIGIT :\n\nTIME : 12/24 HOUR ✅",
     "category": "gov"
   },
   {
-    "s_no": "17",
+    "s_no": "18",
     "service_name": "DL MOBILE NO\nUPDATE INSTANT FAST ⚡",
     "format_details": "DL MOBILE NO OTP BASE UPDATE ✅\n\nDL NO :\nDOB :\nUID NO :\nNEW MOBILE NO :\n1 AADHAR OTP :\n1 MOBILE OTP :\n\nTIME : HATHO HATH OTP DO INSTENT LINK ✅",
     "category": "gov"
   },
   {
-    "s_no": "18",
+    "s_no": "19",
     "service_name": "AYUSMAN CARD PDF \nFIND WITHOUT OTP INSTENT ⚡",
     "format_details": "PM-JAY AYUSMAN CARD PDF FIND ✅\n\nAADHAR NO : \nDOB YEAR :\n\nBLOCK : \nVILLAGE :\nDIST :\nSTATE :\n\nTIME : 10/15 MINT INSTENT ✅",
     "category": "gov"
@@ -246,13 +252,13 @@
     "category": "manual"
   },
   {
-    "s_no": "19",
+    "s_no": "20",
     "service_name": "COVID VACCINE ORIGIANL \nCERTIFICATE ⚡",
     "format_details": "Covid Vaccine Certificate ✅\n\nName - \nDob - \nGender - \nFather - \nMobile - \nAadhar No - \nDose - 1&2 without Batch 💉",
     "category": "gov"
   },
   {
-    "s_no": "20",
+    "s_no": "21",
     "service_name": "BIHAR OTP BASE RATION TO \nAADHAAR NUMBER FIND INSTENT ⚡",
     "format_details": "*BIHAR RATION TO AADHAR NO OTP BASE✅*\n\nRATION ID :\nFAMILY AADHAR FRONT BACK :\nMOBILE NO :\n2 OTP : \n\n*PURI FAMILY KA AADHAR NUMBER MILEGA ✅*",
     "category": "gov"
@@ -262,11 +268,5 @@
     "service_name": "MAHARASHTRA \nMARRIAGE CERTIFICATE ✅ ⚡",
     "format_details": "MAHARASHTRA MARRIAGE CERTIFICATE ✅\n\nHUSBAND NAME :\nADDRESS :\n\nपति का नाम :\nपूरा पता :\n\nWIFE NAME :\nADDRESS :\n\nपत्नी का नाम :\nपूरा पता :\n\nMARRIAGE DATE :\nविवाह की तारीख :\n\nMARRIAGE PLACE :\nविवाह स्थल :\n\nREGISTRATION DATE :\nपंजीकरण की तारीख :\n\nREQUIRED DOCUMENTS :\nआवश्यक दस्तावेज :\n\nHusband Photo (पति का फोटो)\n—————————>\nWife Photo (पत्नी का फोटो)",
     "s_no": "24"
-  },
-  {
-    "category": "gov",
-    "service_name": "UTI PAN PDF \nWITHOUT OTP ORIGINAL ⚡",
-    "format_details": "UTI PAN PDF WITHOUT OTP ORIGINAL ✅\n\nPAN NO - \nDOB - \nNAME -\nUID NO - \n\nTIME SAME DAY ✅",
-    "s_no": "21"
   }
 ]

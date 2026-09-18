@@ -9,14 +9,8 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         
-        /* REMOVE DEFAULT BROWSER VERTICAL SCROLLBAR COMPLETELY */
-        html {
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-        }
-        html::-webkit-scrollbar {
-            display: none; 
-        }
+        html { scrollbar-width: none; -ms-overflow-style: none; }
+        html::-webkit-scrollbar { display: none; }
 
         body { 
             background: #0f1319; 
@@ -28,9 +22,7 @@
             -ms-overflow-style: none; 
         }
 
-        body::-webkit-scrollbar {
-            display: none; 
-        }
+        body::-webkit-scrollbar { display: none; }
         
         .container { 
             width: 100%;
@@ -38,7 +30,6 @@
             margin: 0 auto; 
         }
 
-        /* SEARCH BAR STYLING - TOP POSITION WITH SPACING */
         .search-container {
             margin-bottom: 30px;
             width: 100%;
@@ -78,8 +69,26 @@
             border-color: #00d4ff;
             box-shadow: 0 0 6px #00d4ff, 0 0 20px rgba(0, 212, 255, 0.3);
         }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 35px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .section-header.gov h2 i { color: #00d4ff; margin-right: 8px; }
+        .section-header.manual h2 i { color: #00ea77; margin-right: 8px; }
         
-        /* PC GRID - 4 CARDS */
         .service-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -99,7 +108,6 @@
             min-height: 230px; 
         }
         
-        /* CARD SKY BLUE GLOW */
         .service-card:hover { 
             transform: translateY(-4px); 
             border-color: #00d4ff; 
@@ -115,6 +123,7 @@
             align-items: center; 
         }
         .s-no { background: #00d4ff; color: #000; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+        .s-no.manual-sno { background: #00ea77; }
         
         .card-body { 
             padding: 15px 16px; 
@@ -150,7 +159,6 @@
         }
         .view-btn:hover { background: #388bfd; }
         
-        /* POPUP BACKGROUND */
         .modal { 
             display: none; 
             position: fixed; 
@@ -167,7 +175,6 @@
             overflow: hidden; 
         }
         
-        /* PC POPUP BOX */
         .modal-content { 
             background: #161b22; 
             padding: 25px 30px; 
@@ -201,7 +208,6 @@
         .close-btn { color: #da3633; font-size: 26px; cursor: pointer; background: none; border: none; transition: 0.3s; flex-shrink: 0; padding: 2px;}
         .close-btn:hover { color: #ff4757; transform: scale(1.1); }
         
-        /* BLACK FORMAT BOX */
         .modal-body { 
             font-size: 15px; 
             color: #00ea77; 
@@ -232,43 +238,30 @@
         
         .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
 
-        /* ========================================= */
-        /* MOBILE VIEW - PERFECT FIT COMPACT POPUP   */
-        /* ========================================= */
         @media screen and (max-width: 768px) {
             body { padding: 15px 8px; min-height: 101vh; } 
             .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
+            .section-header { margin: 25px 0 15px 0; }
+            .section-header h2 { font-size: 16px; }
+
             .service-grid { 
                 grid-template-columns: 1fr !important; 
                 gap: 12px; 
             }
-            .service-card { 
-                min-height: 140px; 
-            }
-            .card-body { 
-                padding: 14px; 
-            }
-            .service-name { 
-                font-size: 13.5px; 
-                line-height: 1.45; 
-                white-space: pre-line !important; 
-            }
+            .service-card { min-height: 140px; }
+            .card-body { padding: 14px; }
+            .service-name { font-size: 13.5px; line-height: 1.45; white-space: pre-line !important; }
             .view-btn { padding: 11px 14px; font-size: 12px; margin-top: 10px; }
             .s-no { font-size: 11.5px; padding: 3px 8px; }
             
-            /* MOBILE POPUP - STRICTLY CONFINED TO SCREEN BOUNDS */
-            .modal { 
-                padding: 8px; 
-                align-items: center; 
-                justify-content: center;
-            }
+            .modal { padding: 8px; align-items: center; justify-content: center; }
             .modal-content { 
-                width: 95vw; /* Perfect width that never overflows screen edges */
+                width: 95vw; 
                 min-width: unset !important; 
-                max-width: 345px; /* Compact width */
-                max-height: 75vh; /* Safe height keeping it well within screen */
+                max-width: 345px; 
+                max-height: 75vh; 
                 padding: 12px; 
                 transform: none; 
                 animation: mobilePopIn 0.25s ease-out; 
@@ -277,16 +270,13 @@
                 overflow: hidden;
                 margin: auto;
             }
-            .modal-header {
-                padding-bottom: 6px;
-                margin-bottom: 8px;
-            }
+            .modal-header { padding-bottom: 6px; margin-bottom: 8px; }
             .modal-title { font-size: 13px; }
             .modal-body { 
                 font-size: 11px; 
                 line-height: 1.4;
                 padding: 8px; 
-                max-height: 38vh; /* Controlled inner scroll area so header/footer are 100% visible */
+                max-height: 38vh; 
                 overflow-x: hidden !important; 
                 overflow-y: auto !important; 
                 white-space: pre-wrap !important; 
@@ -305,7 +295,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- SEARCH BAR AT THE TOP -->
+        <!-- SEARCH BAR -->
         <div class="search-container">
             <div class="search-box-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -313,7 +303,7 @@
             </div>
         </div>
 
-        <div id="serviceGrid" class="service-grid">
+        <div id="mainContent">
             <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading Services from Server...</div>
         </div>
     </div>
@@ -353,43 +343,71 @@
                     renderCards(allServicesData);
                 } else { throw new Error(); }
             } catch (e) {
-                document.getElementById('serviceGrid').innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> Connection Error. Refresh Page.</div>`;
+                document.getElementById('mainContent').innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> Connection Error. Refresh Page.</div>`;
             }
+        }
+
+        function createCardHTML(item, index) {
+            let sNo = item.s_no || (index + 1);
+            let formatText = item.format_details ? item.format_details : "";
+            let rawTitle = item.service_name || "Service";
+            let safeFormat = btoa(unescape(encodeURIComponent(formatText)));
+            let isManual = item.category === 'manual';
+
+            return `
+                <div class="service-card">
+                    <div class="card-header">
+                        <span class="s-no ${isManual ? 'manual-sno' : ''}"># ${sNo}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="service-name">${rawTitle}</div>
+                        <button class="view-btn" onclick="openModalFromBase64('${safeFormat}')">
+                            <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
+                        </button>
+                    </div>
+                </div>
+            `;
         }
 
         function renderCards(data) {
-            const grid = document.getElementById('serviceGrid');
+            const container = document.getElementById('mainContent');
             const validData = data.filter(item => item.service_name); 
 
             if (!validData || validData.length === 0) {
-                 grid.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Title Found.</div>`;
+                 container.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Title Found.</div>`;
                  return;
             }
 
-            grid.innerHTML = validData.map((item, index) => {
-                let sNo = item.s_no || (index + 1);
-                let formatText = item.format_details ? item.format_details : "";
-                let rawTitle = item.service_name || "Service";
-                
-                let safeFormat = btoa(unescape(encodeURIComponent(formatText)));
+            const govServices = validData.filter(item => !item.category || item.category === 'gov');
+            const manualServices = validData.filter(item => item.category === 'manual');
 
-                return `
-                    <div class="service-card">
-                        <div class="card-header">
-                            <span class="s-no"># ${sNo}</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="service-name">${rawTitle}</div>
-                            <button class="view-btn" onclick="openModalFromBase64('${safeFormat}')">
-                                <i class="fa-solid fa-file-lines"></i> VIEW FORMAT
-                            </button>
-                        </div>
+            let html = '';
+
+            if (govServices.length > 0) {
+                html += `
+                    <div class="section-header gov">
+                        <h2><i class="fa-solid fa-building-columns"></i> Government Services</h2>
+                    </div>
+                    <div class="service-grid">
+                        ${govServices.map((item, idx) => createCardHTML(item, idx)).join('')}
                     </div>
                 `;
-            }).join('');
+            }
+
+            if (manualServices.length > 0) {
+                html += `
+                    <div class="section-header manual">
+                        <h2><i class="fa-solid fa-gears"></i> Manual Services</h2>
+                    </div>
+                    <div class="service-grid">
+                        ${manualServices.map((item, idx) => createCardHTML(item, idx)).join('')}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
         }
 
-        // TITLE-ONLY SEARCH FILTER FUNCTION
         function filterServices() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allServicesData.filter(item => {

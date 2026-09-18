@@ -60,10 +60,10 @@
     "category": "gov"
   },
   {
-    "s_no": "11",
-    "service_name": "NSDL PAN PDF INSTENT ⚡",
+    "category": "gov",
+    "service_name": "NSDL PAN PDF \nINSTENT OTP BASE⚡",
     "format_details": "NDSL PAN CARD PDF DOWNLOAD ✅\n\nPAN NO - \nDOB - \nUID NO - \nMOBILE NO UID LINK - \n2 AADHAR OTP - \n\nNOTE:\nAADHAR M MOBILE NO LINK HONA CHHAIYE !!",
-    "category": "gov"
+    "s_no": "11"
   },
   {
     "category": "gov",

@@ -74,20 +74,22 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin: 35px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #30363d;
+            margin: 40px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #30363d;
         }
 
         .section-header h2 {
-            font-size: 20px;
-            color: #ffffff;
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .section-header.gov h2 i { color: #00d4ff; margin-right: 8px; }
-        .section-header.manual h2 i { color: #00ea77; margin-right: 8px; }
+        .section-header.gov h2 { color: #00d4ff; }
+        .section-header.manual h2 { color: #00ea77; }
         
         .service-grid { 
             display: grid; 
@@ -123,7 +125,7 @@
             align-items: center; 
         }
         .s-no { background: #00d4ff; color: #000; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
-        .s-no.manual-sno { background: #00ea77; }
+        .s-no.manual-badge { background: #00ea77; color: #000; }
         
         .card-body { 
             padding: 15px 16px; 
@@ -236,15 +238,15 @@
             flex-shrink: 0;
         }
         
-        .loading, .no-data { text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b949e; font-size: 15px; }
+        .loading, .no-data { text-align: center; width: 100%; padding: 40px; color: #8b949e; font-size: 15px; }
 
         @media screen and (max-width: 768px) {
             body { padding: 15px 8px; min-height: 101vh; } 
             .search-container { margin-bottom: 15px; }
             .search-input { font-size: 14px; padding: 12px 16px 12px 45px; }
             
-            .section-header { margin: 25px 0 15px 0; }
-            .section-header h2 { font-size: 16px; }
+            .section-header { margin: 25px 0 15px 0; padding-bottom: 8px; }
+            .section-header h2 { font-size: 17px; }
 
             .service-grid { 
                 grid-template-columns: 1fr !important; 
@@ -265,16 +267,16 @@
                 padding: 12px; 
                 transform: none; 
                 animation: mobilePopIn 0.25s ease-out; 
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-                margin: auto;
+                display: flex; 
+                flex-direction: column; 
+                overflow: hidden; 
+                margin: auto; 
             }
             .modal-header { padding-bottom: 6px; margin-bottom: 8px; }
             .modal-title { font-size: 13px; }
             .modal-body { 
                 font-size: 11px; 
-                line-height: 1.4;
+                line-height: 1.4; 
                 padding: 8px; 
                 max-height: 38vh; 
                 overflow-x: hidden !important; 
@@ -303,11 +305,13 @@
             </div>
         </div>
 
-        <div id="mainContent">
+        <!-- MAIN CONTAINER -->
+        <div id="servicesContainer">
             <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading Services from Server...</div>
         </div>
     </div>
 
+    <!-- POPUP MODAL -->
     <div id="formatModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -340,24 +344,23 @@
                     const fileData = await response.json();
                     const decodedData = decodeURIComponent(escape(atob(fileData.content)));
                     allServicesData = JSON.parse(decodedData);
-                    renderCards(allServicesData);
+                    renderSections(allServicesData);
                 } else { throw new Error(); }
             } catch (e) {
-                document.getElementById('mainContent').innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> Connection Error. Refresh Page.</div>`;
+                document.getElementById('servicesContainer').innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> Connection Error. Refresh Page.</div>`;
             }
         }
 
-        function createCardHTML(item, index) {
-            let sNo = item.s_no || (index + 1);
+        // Fresh sequential counter (#1, #2, #3...) per category
+        function createCardHTML(item, displayNumber, isManual) {
             let formatText = item.format_details ? item.format_details : "";
             let rawTitle = item.service_name || "Service";
             let safeFormat = btoa(unescape(encodeURIComponent(formatText)));
-            let isManual = item.category === 'manual';
 
             return `
                 <div class="service-card">
                     <div class="card-header">
-                        <span class="s-no ${isManual ? 'manual-sno' : ''}"># ${sNo}</span>
+                        <span class="s-no ${isManual ? 'manual-badge' : ''}"># ${displayNumber}</span>
                     </div>
                     <div class="card-body">
                         <div class="service-name">${rawTitle}</div>
@@ -369,53 +372,59 @@
             `;
         }
 
-        function renderCards(data) {
-            const container = document.getElementById('mainContent');
+        function renderSections(data) {
+            const container = document.getElementById('servicesContainer');
             const validData = data.filter(item => item.service_name); 
 
             if (!validData || validData.length === 0) {
-                 container.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Title Found.</div>`;
-                 return;
+                container.innerHTML = `<div class="no-data"><i class="fa-solid fa-folder-open"></i> No Matching Title Found.</div>`;
+                return;
             }
 
-            const govServices = validData.filter(item => !item.category || item.category === 'gov');
-            const manualServices = validData.filter(item => item.category === 'manual');
+            const manualList = validData.filter(item => 
+                item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"))
+            );
 
-            let html = '';
+            const govList = validData.filter(item => 
+                item.category !== 'manual' && (!item.service_name || !item.service_name.toUpperCase().includes("MANUAL"))
+            );
 
-            if (govServices.length > 0) {
-                html += `
+            let htmlContent = "";
+
+            // 1. GOV SERVICE (Starts at #1)
+            if (govList.length > 0) {
+                htmlContent += `
                     <div class="section-header gov">
-                        <h2><i class="fa-solid fa-building-columns"></i> Government Services</h2>
+                        <h2><i class="fa-solid fa-building-columns"></i> GOV SERVICE</h2>
                     </div>
                     <div class="service-grid">
-                        ${govServices.map((item, idx) => createCardHTML(item, idx)).join('')}
+                        ${govList.map((item, idx) => createCardHTML(item, idx + 1, false)).join('')}
                     </div>
                 `;
             }
 
-            if (manualServices.length > 0) {
-                html += `
+            // 2. MANUAL SERVICE (Also Starts at #1)
+            if (manualList.length > 0) {
+                htmlContent += `
                     <div class="section-header manual">
-                        <h2><i class="fa-solid fa-gears"></i> Manual Services</h2>
+                        <h2><i class="fa-solid fa-gears"></i> MANUAL SERVICE</h2>
                     </div>
                     <div class="service-grid">
-                        ${manualServices.map((item, idx) => createCardHTML(item, idx)).join('')}
+                        ${manualList.map((item, idx) => createCardHTML(item, idx + 1, true)).join('')}
                     </div>
                 `;
             }
 
-            container.innerHTML = html;
+            container.innerHTML = htmlContent;
         }
 
         function filterServices() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allServicesData.filter(item => {
                 const nameMatch = item.service_name && item.service_name.toLowerCase().includes(query);
-                const sNoMatch = item.s_no && item.s_no.toString().toLowerCase().includes(query);
-                return nameMatch || sNoMatch; 
+                return nameMatch; 
             });
-            renderCards(filtered);
+            renderSections(filtered);
         }
 
         let currentFormatText = "";

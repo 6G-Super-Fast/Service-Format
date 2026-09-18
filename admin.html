@@ -97,7 +97,7 @@
         .btn-delete { background: #da3633; }
         .btn-delete:hover { background: #f85149; }
 
-        /* ENTRY CARD WITH CLEAN GRID LAYOUT */
+        /* GRID ENTRY CARD */
         .list-item { 
             display: grid;
             grid-template-columns: auto auto 1fr auto;
@@ -119,7 +119,7 @@
         
         .drag-icon { color: #8b949e; font-size: 16px; display: flex; align-items: center; justify-content: center; width: 18px; }
 
-        /* SEPARATE HASHTAG BADGE GRID COLUMN */
+        /* SEPARATE S.NO BADGE */
         .sno-badge {
             background: #00d4ff;
             color: #000;
@@ -161,7 +161,6 @@
             margin-top: 2px;
         }
 
-        /* MODAL SECTION HEADINGS */
         .modal-section-title {
             display: flex;
             align-items: center;
@@ -212,7 +211,7 @@
         
         <div style="display: flex; gap: 10px;">
             <input type="text" id="sNoInput" class="input-pro" placeholder="S. No." style="width: 30%; text-align:center; font-weight: bold;">
-            <select id="categoryInput" class="input-pro" style="width: 70%; font-weight: bold; color: #00d4ff;">
+            <select id="categoryInput" class="input-pro" style="width: 70%; font-weight: bold; color: #00d4ff;" onchange="autoSuggestSNo()">
                 <option value="gov" selected>🏛️ Government Service</option>
                 <option value="manual">⚙️ Manual Service</option>
             </select>
@@ -248,7 +247,7 @@
                 <h3><i class="fa-solid fa-list"></i> ALL CSC SERVICES LIST</h3>
                 <button type="button" class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="subtitle" style="text-align: left; margin-top:-5px; margin-bottom: 10px;">💡 Drag & Drop to reorder entries. Numbers auto-update!</p>
+            <p class="subtitle" style="text-align: left; margin-top:-5px; margin-bottom: 10px;">💡 Drag & Drop to reorder entries within list.</p>
             <div id="serviceListContainer"></div>
         </div>
     </div>
@@ -333,13 +332,14 @@
             document.querySelector('#loginSection .btn-green').innerHTML = "<i class='fa-solid fa-right-to-bracket'></i> ENTER ADMIN PANEL";
         }
 
+        // Auto suggest based on selected category count
         function autoSuggestSNo() {
-            if(serviceArray.length > 0) {
-                const maxNo = Math.max(...serviceArray.map(item => parseInt(item.s_no) || 0));
-                document.getElementById('sNoInput').value = maxNo + 1;
-            } else {
-                document.getElementById('sNoInput').value = 1;
-            }
+            const currentCat = document.getElementById('categoryInput').value;
+            const filtered = serviceArray.filter(item => {
+                const isManual = item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"));
+                return currentCat === 'manual' ? isManual : !isManual;
+            });
+            document.getElementById('sNoInput').value = filtered.length + 1;
         }
 
         async function processServiceEntry() {
@@ -398,14 +398,13 @@
             renderServiceListLocal();
         }
 
-        function createListItemHTML(item, index) {
+        function createListItemHTML(item, index, displayNumber, isManual) {
             let sName = (item.service_name || "Old Format Entry").replace(/\n/g, ' ');
-            let isManual = item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"));
 
             return `
                 <div class="list-item" draggable="true" data-index="${index}">
                     <span class="drag-icon"><i class="fa-solid fa-grip-vertical"></i></span>
-                    <span class="sno-badge ${isManual ? 'manual-badge' : ''}">#${item.s_no}</span>
+                    <span class="sno-badge ${isManual ? 'manual-badge' : ''}">#${displayNumber}</span>
                     <div class="item-text-wrap">
                         <div class="item-title">${sName}</div>
                         <div class="item-sub">Format Data Logged</div>
@@ -419,8 +418,6 @@
 
         function renderServiceListLocal() {
             const container = document.getElementById('serviceListContainer');
-            updateSerialNumbers();
-
             container.innerHTML = "";
             if (!serviceArray || serviceArray.length === 0) {
                 container.innerHTML = '<div style="text-align: center; color: #8b949e; padding: 30px;">No records found.</div>';
@@ -441,25 +438,27 @@
 
             let fullHtml = "";
 
+            // Gov Services reset to #1
             if (govItems.length > 0) {
                 fullHtml += `
                     <div class="modal-section-title gov">
                         <i class="fa-solid fa-building-columns"></i> GOV SERVICES (${govItems.length})
                     </div>
                 `;
-                govItems.forEach(entry => {
-                    fullHtml += createListItemHTML(entry.item, entry.index);
+                govItems.forEach((entry, idx) => {
+                    fullHtml += createListItemHTML(entry.item, entry.index, idx + 1, false);
                 });
             }
 
+            // Manual Services reset to #1
             if (manualItems.length > 0) {
                 fullHtml += `
                     <div class="modal-section-title manual">
                         <i class="fa-solid fa-gears"></i> MANUAL SERVICES (${manualItems.length})
                     </div>
                 `;
-                manualItems.forEach(entry => {
-                    fullHtml += createListItemHTML(entry.item, entry.index);
+                manualItems.forEach((entry, idx) => {
+                    fullHtml += createListItemHTML(entry.item, entry.index, idx + 1, true);
                 });
             }
 
@@ -468,8 +467,15 @@
         }
 
         function updateSerialNumbers() {
-            serviceArray.forEach((item, idx) => {
-                item.s_no = (idx + 1).toString();
+            let govCount = 1;
+            let manCount = 1;
+            serviceArray.forEach((item) => {
+                const isManual = item.category === 'manual' || (item.service_name && item.service_name.toUpperCase().includes("MANUAL"));
+                if(isManual) {
+                    item.s_no = (manCount++).toString();
+                } else {
+                    item.s_no = (govCount++).toString();
+                }
             });
         }
 
@@ -480,16 +486,9 @@
                     dragStartIndex = +this.getAttribute('data-index'); 
                     this.classList.add('dragging'); 
                 });
-                draggable.addEventListener('dragover', function(e) { 
-                    e.preventDefault(); 
-                });
-                draggable.addEventListener('dragenter', function(e) { 
-                    e.preventDefault(); 
-                    this.classList.add('drag-over'); 
-                });
-                draggable.addEventListener('dragleave', function() { 
-                    this.classList.remove('drag-over'); 
-                });
+                draggable.addEventListener('dragover', function(e) { e.preventDefault(); });
+                draggable.addEventListener('dragenter', function(e) { e.preventDefault(); this.classList.add('drag-over'); });
+                draggable.addEventListener('dragleave', function() { this.classList.remove('drag-over'); });
                 draggable.addEventListener('drop', function(e) { 
                     e.preventDefault();
                     this.classList.remove('drag-over'); 
@@ -498,9 +497,7 @@
                         swapItems(dragStartIndex, dragEndIndex); 
                     }
                 });
-                draggable.addEventListener('dragend', function() { 
-                    this.classList.remove('dragging'); 
-                });
+                draggable.addEventListener('dragend', function() { this.classList.remove('dragging'); });
             });
         }
 

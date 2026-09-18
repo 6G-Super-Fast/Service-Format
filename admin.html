@@ -61,6 +61,10 @@
             outline: none; 
         }
 
+        select.input-pro {
+            cursor: pointer;
+        }
+
         textarea.input-pro {
             resize: vertical;
             line-height: 1.5;
@@ -142,10 +146,15 @@
         
         <div style="display: flex; gap: 10px;">
             <input type="text" id="sNoInput" class="input-pro" placeholder="S. No." style="width: 30%; text-align:center; font-weight: bold;">
-            <textarea id="serviceNameInput" class="input-pro" placeholder="Service Name (Press Enter for multi-line)" style="width: 70%; min-height: 54px; margin-bottom: 15px;"></textarea>
+            <select id="categoryInput" class="input-pro" style="width: 70%; font-weight: bold; color: #00d4ff;">
+                <option value="gov" selected>🏛️ Government Service</option>
+                <option value="manual">⚙️ Manual Service</option>
+            </select>
         </div>
+
+        <textarea id="serviceNameInput" class="input-pro" placeholder="Service Name (Press Enter for multi-line)" style="min-height: 54px; margin-bottom: 15px;"></textarea>
         
-        <textarea id="formatDetailsInput" class="input-pro" placeholder="Type format process & required documents here...&#10;1. Aadhaar Card&#10;2. Birth Certificate..." style="min-height: 120px;"></textarea>
+        <textarea id="formatDetailsInput" class="input-pro" placeholder="Type format process & required documents here..." style="min-height: 120px;"></textarea>
         
         <button type="button" id="actionBtn" class="btn-pro btn-green" onclick="processServiceEntry()">
             <i class="fa-solid fa-plus"></i> ADD SERVICE
@@ -269,6 +278,7 @@
 
         async function processServiceEntry() {
             const s_no = document.getElementById('sNoInput').value.trim();
+            const category = document.getElementById('categoryInput').value;
             let service_name = document.getElementById('serviceNameInput').value.trim();
             const format_details = document.getElementById('formatDetailsInput').value.trim();
             const actionBtn = document.getElementById('actionBtn');
@@ -289,9 +299,9 @@
             }
 
             if(editIndex === null) {
-                serviceArray.push({ s_no, service_name, format_details });
+                serviceArray.push({ s_no, category, service_name, format_details });
             } else {
-                serviceArray[editIndex] = { s_no, service_name, format_details };
+                serviceArray[editIndex] = { s_no, category, service_name, format_details };
                 editIndex = null;
                 document.getElementById('formTitle').innerHTML = "<i class='fa-solid fa-file-circle-plus'></i> Add New Service Format";
                 document.getElementById('actionBtn').className = "btn-pro btn-green";
@@ -299,6 +309,7 @@
 
             document.getElementById('serviceNameInput').value = "";
             document.getElementById('formatDetailsInput').value = "";
+            document.getElementById('categoryInput').value = "gov";
             autoSuggestSNo();
 
             actionBtn.innerHTML = "<i class='fa-solid fa-circle-check'></i> SAVED TO LIST ✅";
@@ -333,12 +344,13 @@
 
             serviceArray.forEach((item, index) => {
                 let sName = (item.service_name || "Old Format Entry").replace(/\n/g, ' ');
+                let catBadge = item.category === 'manual' ? '<span style="color:#e3b341; font-size:11px; margin-left:6px;">[MANUAL]</span>' : '<span style="color:#00d4ff; font-size:11px; margin-left:6px;">[GOV]</span>';
                 container.innerHTML += `
                     <div class="list-item" draggable="true" data-index="${index}">
                         <div style="display: flex; align-items: center; flex: 1; padding-right: 15px; overflow: hidden;">
                             <span class="drag-icon"><i class="fa-solid fa-grip-vertical"></i></span>
                             <div>
-                                <strong style="color: #00ea77; font-size: 14px;"># ${item.s_no} - ${sName}</strong>
+                                <strong style="color: #00ea77; font-size: 14px;"># ${item.s_no} - ${sName} ${catBadge}</strong>
                                 <div style="font-size: 12px; color: #8b949e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;">
                                     Format Data Logged
                                 </div>
@@ -400,6 +412,7 @@
             editIndex = index;
             const item = serviceArray[index];
             document.getElementById('sNoInput').value = item.s_no || "";
+            document.getElementById('categoryInput').value = item.category || "gov";
             document.getElementById('serviceNameInput').value = item.service_name || "";
             document.getElementById('formatDetailsInput').value = item.format_details || "";
             

@@ -120,12 +120,6 @@
     "category": "gov"
   },
   {
-    "s_no": "19",
-    "service_name": "MAHARASHTRA \nMARRIAGE CERTIFICATE ✅ ⚡",
-    "format_details": "MAHARASHTRA MARRIAGE CERTIFICATE ✅\n\nHUSBAND NAME :\nADDRESS :\n\nपति का नाम :\nपूरा पता :\n\nWIFE NAME :\nADDRESS :\n\nपत्नी का नाम :\nपूरा पता :\n\nMARRIAGE DATE :\nविवाह की तारीख :\n\nMARRIAGE PLACE :\nविवाह स्थल :\n\nREGISTRATION DATE :\nपंजीकरण की तारीख :\n\nREQUIRED DOCUMENTS :\nआवश्यक दस्तावेज :\n\nHusband Photo (पति का फोटो)\n—————————>\nWife Photo (पत्नी का फोटो)",
-    "category": "gov"
-  },
-  {
     "s_no": "3",
     "service_name": "MANUAL PAN CARD ⚡",
     "format_details": "ᴘᴀɴ ᴄᴀʀᴅ ᴍᴀɴᴜᴀʟ ᴘᴅꜰ ɪɴsᴛᴇɴᴛ ✅\n\nᴘᴀɴ ɴᴜᴍʙᴇʀ -\nɴᴀᴍᴇ -\nɢᴇɴᴅᴇʀ -\nꜰᴀᴛʜᴇʀ's ɴᴀᴍᴇ - \nᴅᴏʙ -\n\nɴᴏᴛᴇ :\nᴘʜᴏᴛᴏ & sɪɢɴᴀᴛᴜʀᴇ ʙʜɪ ʟɢᴇɢᴀ ✅",
@@ -252,15 +246,21 @@
     "category": "manual"
   },
   {
-    "s_no": "20",
+    "s_no": "19",
     "service_name": "COVID VACCINE ORIGIANL \nCERTIFICATE ⚡",
     "format_details": "Covid Vaccine Certificate ✅\n\nName - \nDob - \nGender - \nFather - \nMobile - \nAadhar No - \nDose - 1&2 without Batch 💉",
     "category": "gov"
   },
   {
-    "s_no": "21",
+    "s_no": "20",
     "service_name": "BIHAR OTP BASE RATION TO \nAADHAAR NUMBER FIND INSTENT ⚡",
     "format_details": "*BIHAR RATION TO AADHAR NO OTP BASE✅*\n\nRATION ID :\nFAMILY AADHAR FRONT BACK :\nMOBILE NO :\n2 OTP : \n\n*PURI FAMILY KA AADHAR NUMBER MILEGA ✅*",
     "category": "gov"
+  },
+  {
+    "category": "manual",
+    "service_name": "MAHARASHTRA \nMARRIAGE CERTIFICATE ✅ ⚡",
+    "format_details": "MAHARASHTRA MARRIAGE CERTIFICATE ✅\n\nHUSBAND NAME :\nADDRESS :\n\nपति का नाम :\nपूरा पता :\n\nWIFE NAME :\nADDRESS :\n\nपत्नी का नाम :\nपूरा पता :\n\nMARRIAGE DATE :\nविवाह की तारीख :\n\nMARRIAGE PLACE :\nविवाह स्थल :\n\nREGISTRATION DATE :\nपंजीकरण की तारीख :\n\nREQUIRED DOCUMENTS :\nआवश्यक दस्तावेज :\n\nHusband Photo (पति का फोटो)\n—————————>\nWife Photo (पत्नी का फोटो)",
+    "s_no": "24"
   }
 ]
